@@ -1,0 +1,104 @@
+%{
+  #define rvals_to_float(x) (*(float*)&x)
+  
+  #include <math.h>
+  
+  /*
+   * Steinhart/Hart conversion for AD7770_T10K100KU 
+   * 10K Thermistor pulled up by 100K 
+   * YSI/GE/TE Internal Model 55016 including Model 055107
+   * used in the thermistor ring in the primary duct for
+   * DPOPS during DCOTSS 2021.
+   *
+   * Created using arp-das-matlab/Therm/T10K_TE_55016.m
+   */
+  double AD7770_T10K100KU_2_Celcius(int32_t At) {
+    double Rpu = 100e3;
+    int32_t Aref = 1<<23;
+    double logR = log(At * Rpu / (Aref - At));
+    double a0 = 1.1295e-03;
+    double a1 = 2.3410e-04;
+    double a3 = 8.7524e-08;
+    double C = 1/(a0 + a1 * logR + a3*pow(logR,3)) - 273.15;
+    return C;
+  }
+
+  /*
+   * Steinhart/Hart conversion for uDACS16_T30K75KU
+   * 30K Thermistor pulled up by 75K
+   * Used with 16bit signed ADC on uDACS16
+   * DPOPS during DCOTSS 2021.
+   *
+   * Created using arp-das-matlab/Therm/T30K75KU_uDACS16.m
+   */
+  double uDACS16_T30K75KU_2_Celcius(int16_t At) {
+    double Rpu = 75e3;
+    int32_t Aref = 1<<15;
+    double logR = log(At * Rpu / (Aref - At));
+    double a0 = 9.3316e-04;
+    double a1 = 2.2141e-04;
+    double a3 = 1.2622e-07;
+    double C = 1/(a0 + a1 * logR + a3*pow(logR,3)) - 273.15;
+    return C;
+  }
+
+%}
+
+/* uDACS DAC AD5664: 0-65536 = 0-5V */
+TM typedef double uDACS_Volts_t { text "%7.4lf"; }
+TM typedef uint16_t uDACS_DAC_t { text "%6.4lf"; convert uDACS_Volts_t; }
+  Calibration (uDACS_DAC_t, uDACS_Volts_t) { 0, 0, 65536, 5 }
+
+/* uDACS_ADC: AD7770: 32 bits */
+/* Address 0x14 AD7770 subsystem status */
+TM typedef uint16_t AD7770_status_t { text "%04X"; }
+/* Raw 32-bit AIN readings */
+TM typedef uint32_t AD7770_rawAI_t { text "%13lu"; }
+/* Error header (high byte of AD7770_rawAI_t) */
+TM typedef uint8_t AD7770_AI_stat_t { text "%02X"; }
+/* 24-bit AD7770 AIN reading */
+TM typedef int32_t AD7770_AI_t { text "%9.4lf"; convert uDACS_Volts_t; }
+  Calibration (AD7770_AI_t, uDACS_Volts_t) {
+    -8388610, -9999,
+    -8388609, -9999,
+    -8388608, -2.5,
+    8388608, 2.5,
+    8388609, 9999,
+    8388610, 9999
+  }
+TM typedef double uDACS_CELCIUS { text "%7.3lf"; }
+TM typedef AD7770_AI_t AD7770_T10K100KU {
+  text "%7.3lf";
+  convert uDACS_CELCIUS AD7770_T10K100KU_2_Celcius();
+}
+TM typedef int32_t uDACS_T30K75KU { text "%8.3lf"; convert uDACS_CELCIUS; }
+TM typedef uint16_t AD7770_count_t { text "%5u"; }
+
+TM typedef int32_t uDACS_sec { text "%13.5lf"; }
+TM typedef double uDACS_msec;
+TM typedef uint32_t RTC_elapsed_t { text "%13lu"; }
+TM typedef uint16_t RTC_loopdur_t { text "%6.2lf"; convert uDACS_msec; }
+  Calibration (RTC_loopdur_t, uDACS_msec) { 0, 0, 100, 1 }
+
+/* uDACS16 ADS1115 ADC +/- 4.096 V */
+TM typedef int16_t ADS1115_AI { text "%7.4lf"; convert uDACS_Volts_t; }
+  Calibration (ADS1115_AI, uDACS_Volts_t) {
+    -32768, -4.096,
+     32768,  4.096
+  }
+TM typedef ADS1115_AI uDACS16_T30K75KU {
+  text "%7.3lf";
+  convert uDACS_CELCIUS uDACS16_T30K75KU_2_Celcius();
+}
+TM typedef AD7770_status_t ADS1115_status_t;
+TM typedef AD7770_count_t ADS1115_count_t;
+
+TM typedef float MS5607_P_t { text "%8.3lf"; } /* mbar */
+TM typedef float MS5607_T_t { text "%7.3lf"; } /* Celcius */
+
+TM typedef uint8_t PwrStat_t { text "%2X"; }
+
+%{
+  #define uDACS_on_off_text(x) ((x) ? " on" : "off")
+%}
+TM typedef uint8_t uDACS_on_off { text "%3u" uDACS_on_off_text(); }

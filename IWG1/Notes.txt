@@ -1,0 +1,37 @@
+These are the data definitions copied directly from the experimenter's handbook.
+I will use the same variable names, except for TDrift. For TDrift, I will
+perform the standard NAV calculation, converting the time to unix time, then
+calculating the difference mod 12 hours
+
+TDrift: Time UTC IOS-8601 formatted date and time
+Lat Degree_N(dec) -90 to 90 Platform Latitude
+Lon Degree_E(dec) -180 to 179.9999 Platform Longitude
+GPS_MSL_Alt m GPS Altitude, Mean Sea Level (MSL)
+WGS_84_Alt m WGS 84 Geoid Altitude
+Press_Alt Feet Pressure Altitude
+Radar_Alt Feet Zero or Greater Radar Altimeter Altitude
+Grnd_Spd m/s Ground Speed
+True_Airspeed m/s True Airspeed
+Indicated_Airspeed Knots Indicated Airspeed
+Mach_Number Aircraft Mach Number
+Vert_Velocity m/s Aircraft Vertical Velocity
+True_Hdg Degrees True 0 to 359.9999 True Heading
+Track Degrees True 0 to 359.9999 Track Angle
+Drift Degrees Drift Angle
+Pitch Degrees -90 to 90 [1] Pitch
+Roll Degrees -90 to 90 [2] Roll
+Side_slip Degrees Side Slip Angle
+Angle_of_Attack Degrees -90 to 90 [1] Angle of Attack
+Ambient_Temp Degrees C Ambient Temperature
+Dew_Point Degrees C Dew Point
+Total_Temp Degrees C Total Temperature
+Static_Press mbar Static Pressure
+Dynamic_Press mbar Dynamic Pressure (total minus static)
+Cabin_Press mbar Cabin Pressure / Altitude
+Wind_Speed m/s Zero or Greater Wind Speed
+Wind_Dir degrees_true 0 to 359.9999 Wind Direction
+Vert_Wind_Spd m/s [3] Vertical Wind Speed
+Solar_Zenith Degrees Solar Zenith Angle
+Sun_Elev_AC Degrees Sun Elevation from Aircraft
+Sun_Az_Grd Degrees True 0 to 359.9999 Sun Azimuth from Ground
+Sun_Az_AC Degrees True 0 to 359.9999 Sun Azimuth from Aircraft

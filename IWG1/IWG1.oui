@@ -1,0 +1,9 @@
+<package> IWG1
+<include> msg
+<follow> msg
+<include> <stdlib.h>
+
+<package> appid_default
+<include> "dasio/appid.h"
+<defs>
+  DAS_IO::AppID_t DAS_IO::AppID("IWG1", "IWG1 UDP Receiver", "V2.0");

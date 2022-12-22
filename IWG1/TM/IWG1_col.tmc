@@ -1,0 +1,23 @@
+%{
+  #include <math.h>
+  #include "IWG1.h"
+  IWG1_data_t IWG1;
+
+  signed short calc_drift(double IWG_T) {
+    // static int n = 9;
+    double now;
+    double dt;
+    double dti, dtf;
+    signed short dts;
+    now = dtime();
+    dtf = modf((now - IWG_T)/(12*3600) + .5, &dti);
+    // if (++n >= 10) {
+    //   nl_error( -2, "now: %.3lf  IWG_T: %.3lf dti: %.3lf dtf: %.3lf",
+    //     now, IWG_T, dti, dtf);
+    //   n = 0;
+    // }
+    dt = (dtf - .5) * 12 * 3600;
+    dts = (signed short) floor(dt+.5);
+    return dts;
+  }
+%}

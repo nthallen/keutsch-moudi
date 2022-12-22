@@ -1,0 +1,31 @@
+%{
+  #define tick_sic() uDACS_A.SB->tick_sic()
+  // #define tick_sic()
+
+  /*
+    Addresses Category Offsets
+    10:1:13   MS5607   0-3
+    20:1:29   ADS1115  4-13
+    6         FAIL     14
+    7         SWITCH   15
+    30        CmdStat  16
+    Total of 17 words
+    
+    Unused:
+    40:1:43   RTC
+    
+    (Addresses are all hex, Offsets are decimal)
+  */  
+  uDACS_mreq uDACS_A;
+  uint16_t uDACS_A_rvals[17];
+  
+  void uDACS_A_init() {
+    uDACS_init(uDACS_A, "uDACS_A");
+    if (uDACS_A.present) {
+      uDACS_A.mreq = uDACS_A.SB->pack_mread_request(17,
+        "10:1:13,20:1:29,6,7,30");
+      uDACS_A.rvals = uDACS_A_rvals;
+    }
+  }
+%}
+TM INITFUNC uDACS_A_init();

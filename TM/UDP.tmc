@@ -1,0 +1,75 @@
+%{
+  #include <time.h>
+  #include "UDP.h"
+  #include "dasio/tmctime.h"
+
+  int status_stale = -1;
+  
+  UDPcsv_file UDPcsv_status(10-1, "");
+  bool UDPext_debug = false;
+  bool gettime_error = false;
+  
+  double system_time() {
+    struct timespec ts;
+    int rv = clock_gettime(CLOCK_REALTIME, &ts);
+    double td = 0.;
+    if (rv == 0) {
+      td = (double)ts.tv_sec + 1e-9*ts.tv_nsec;
+    } else if (!gettime_error) {
+      msg(MSG_ERROR, "clock_gettime returned error %d: %s",
+        errno, strerror(errno));
+      gettime_error = true;
+    }
+    return td;
+  }
+
+  void UDPinit() {
+    UDPbcast *UDPstatus =
+      new UDPbcast("10.6.1.255", "5100",1000); // ER-2 LAN
+//    UDPbcast UDP("10.245.83.127", "5100"); // Link LAN
+//    UDPbcast UDP("192.168.237.255", "5100"); // VMware private LAN
+
+
+    // column numbers are offset by 2 to account for:
+    //   1-based documentation
+    //   'MOUDI' string in first column
+    //   ISO8601 time in second column
+    UDPcsv_status.init(UDPstatus, 1000);
+    UDPcsv_status.init_col(3-2,"Status","%.0lf");
+    UDPcsv_status.init_col(4-2,"MoudiValveS");
+    UDPcsv_status.init_col(5-2,"MoudiFlow");
+    UDPcsv_status.init_col(6-2,"PumpS");
+    UDPcsv_status.init_col(7-2, "PumpV");
+    UDPcsv_status.init_col(8-2, "PumpT");
+    UDPcsv_status.init_col(9-2, "InstP");
+    UDPcsv_status.init_col(10-2, "InstT");
+  }
+%}
+
+TM INITFUNC UDPinit();
+
+/* MOUDI,ISO8601,Status,
+ * status:
+ *   Is the instrument taking data? If not, what else might it be doing?
+ *   Are there important diagnostic channels we would like to see (temps, pressure)?
+ *   Are there any scientific products we can report?
+ */
+depending on (1 Hz) {
+  int status;
+  double systime;
+  
+  status = 3;
+  /* if (POPS_Srvr == 2) status |= 3; */
+  systime = system_time();
+
+  UDPcsv_status.set_col(3-2,status);
+  UDPcsv_status.set_col(4-2, MMstat);
+  UDPcsv_status.set_col(5-2, text(MMFC_VolFlow));
+  UDPcsv_status.set_col(6-2, PumpStatusTBD);
+  UDPcsv_status.set_col(7-2, PumpVoltageTBD);
+  UDPcsv_status.set_col(8-2, PumpTempTBD);
+  UDPcsv_status.set_col(9-2, text(MS5607_P));
+  UDPcsv_status.set_col(10-2, text(MS5607_T));
+  UDPcsv_status.transmit("MOUDI", systime); /* dtime() */
+
+}

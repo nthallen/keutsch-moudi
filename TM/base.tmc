@@ -1,0 +1,11 @@
+TM typedef uint8_t UCHAR { text "%3u"; }
+TM typedef uint16_t MFCtr_t { text "%5u"; }
+TM 1 Hz MFCtr_T MFCtr, Synch;
+TM MAXCOLS = 200;
+
+/* I think these will all be unused:
+TM typedef float LFE_Gain_T { text "%9.2e"; }
+TM typedef float BP_Gain_T { text "%9.2e"; }
+TM typedef uint8_t BPLPF_t { text "%3u"; }
+TM typedef uint16_t U16Sim_t { text "%5u"; }
+*/

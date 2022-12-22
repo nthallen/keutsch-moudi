@@ -1,0 +1,92 @@
+/* uDACS_A */
+TM typedef uint8_t Fail_t { text "%02X"; }
+/* Fail&1 is the Fail Light status.
+   Fail&0x10 is the mode switch position
+   FailText and ModeText are defined in uDACS_A_conv.tmc
+ */
+TM 1 Hz Fail_t FailMode;
+TM 1 Hz PwrStat_t PwrStat;
+
+/* MS5607 P and T */
+TM 1 Hz MS5607_P_t MS5607_P;
+TM 1 Hz MS5607_T_t MS5607_T;
+
+/* DAC Channels */
+/*
+TM 1 Hz uDACS_DAC_t uDACS_A_VSet0;
+TM 1 Hz uDACS_DAC_t uDACS_A_VSet1;
+TM 1 Hz uDACS_DAC_t uDACS_A_VSet2;
+TM 1 Hz uDACS_DAC_t uDACS_A_VSet3;
+*/
+
+/* AD7770 for uDACS */
+/*
+TM 1 Hz AD7770_status_t uDACS_A_status;
+TM 1 Hz AD7770_rawAI_t uDACS_A_Raw0;
+TM 1 Hz AD7770_rawAI_t uDACS_A_Raw1;
+TM 1 Hz AD7770_rawAI_t uDACS_A_Raw2;
+TM 1 Hz AD7770_rawAI_t uDACS_A_Raw3;
+TM 1 Hz AD7770_rawAI_t uDACS_A_Raw4;
+TM 1 Hz AD7770_rawAI_t uDACS_A_Raw5;
+TM 1 Hz AD7770_rawAI_t uDACS_A_Raw6;
+TM 1 Hz AD7770_rawAI_t uDACS_A_Raw7;
+TM 1 Hz AD7770_count_t uDACS_A_N;
+TM 1 Hz AD7770_status_t uDACS_A_errors;
+*/
+
+/* ADS1115 for uDACS16 */
+TM 1 Hz ADS1115_status_t uDACS_A_status;
+TM 1 Hz uDACS16_T30K75KU Rov1T;
+TM 1 Hz uDACS16_T30K75KU Rov2T;
+TM 1 Hz uDACS16_T30K75KU Rov3T;
+TM 1 Hz uDACS16_T30K75KU Rov4T;
+TM 1 Hz uDACS16_T30K75KU Rov5T;
+TM 1 Hz uDACS16_T30K75KU Rov6T;
+TM 1 Hz uDACS16_T30K75KU Rov7T;
+TM 1 Hz uDACS16_T30K75KU Rov8T;
+TM 1 Hz ADS1115_count_t uDACS_A_N;
+
+/* RTC data */
+/*
+TM 1 Hz RTC_elapsed_t uDACS_A_elapsed;
+TM 1 Hz RTC_loopdur_t uDACS_A_curloopdur;
+TM 1 Hz RTC_loopdur_t uDACS_A_maxloopdur;
+*/
+
+group uDACS_A (
+    MS5607_P, MS5607_T,
+    /* uDACS_A_VSet0, uDACS_A_VSet1, uDACS_A_VSet2, uDACS_A_VSet3, */
+    uDACS_A_status, Rov1T, Rov2T, Rov3T, Rov4T, Rov5T, Rov6T, Rov7T,
+    Rov8T, uDACS_A_N,
+    /* uDACS_A_elapsed, uDACS_A_curloopdur, uDACS_A_maxloopdur, */
+    FailMode, PwrStat) {
+  if (uDACS_mread(uDACS_A)) {
+    MS5607_P = rvals_to_float(uDACS_A_rvals[0]);
+    MS5607_T = rvals_to_float(uDACS_A_rvals[2]);
+    /*
+    uDACS_A_Vset0 = uDACS_A_rvals[0];
+    uDACS_A_Vset1 = uDACS_A_rvals[1];
+    uDACS_A_Vset2 = uDACS_A_rvals[2];
+    uDACS_A_Vset3 = uDACS_A_rvals[3];
+    */
+    uDACS_A_status = uDACS_A_rvals[4];
+    Rov1T = uDACS_A_rvals[5];
+    Rov2T = uDACS_A_rvals[6];
+    Rov3T = uDACS_A_rvals[7];
+    Rov4T = uDACS_A_rvals[8];
+    Rov5T = uDACS_A_rvals[9];
+    Rov6T = uDACS_A_rvals[10];
+    Rov7T = uDACS_A_rvals[11];
+    Rov8T = uDACS_A_rvals[12];
+    uDACS_A_N = uDACS_A_rvals[13];
+    
+    /*
+    uDACS_A_elapsed = (uDACS_A_rvals[15] << 16) | uDACS_A_rvals[14];
+    uDACS_A_curloopdur = uDACS_A_rvals[16];
+    uDACS_A_maxloopdur = uDACS_A_rvals[17];
+    */
+    
+    FailMode = (uDACS_A_rvals[14] & 0x01) | (((uDACS_A_rvals[15] & 0x01)^0x01)<<4);
+    PwrStat = uDACS_A_rvals[16] & 0xFF;
+  }
+}

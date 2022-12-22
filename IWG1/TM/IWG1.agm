@@ -1,0 +1,21 @@
+ModuleDef IWG1 [ IWG1TblName= ] {
+  IWG1 Module receives standard parameters from NASA Aircraft
+  Can set IWG1TblName in order to embed table into another page.
+}
+
+mode (default) {
+  tmcbase = IWG1.tmc
+  colbase = IWG1_col.tmc
+  genuibase = IWG1.genui
+  - : IWG1.tbl:IWG1.tbl.in
+  DISTRIB = @MODDIR@/../IWG1
+  CPPFLAGS = -I @MODDIR@/..
+}
+
+%%
+.PHONY : clean-IWG1 @MODDIR@/../IWG1
+@MODDIR@/../IWG1 :
+	$(MAKE) --directory=@MODDIR@/..
+clean-dist : clean-IWG1
+clean-IWG1 :
+	$(MAKE) --directory=@MODDIR@/.. clean

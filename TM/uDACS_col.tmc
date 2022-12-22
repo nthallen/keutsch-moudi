@@ -1,0 +1,90 @@
+%{
+  #include "subbuspp.h"
+  #define disarm_sic()
+
+  typedef struct {
+    subbuspp *SB;
+    const char *name;
+    subbus_mread_req *mreq;
+    uint16_t *rvals;
+    bool saw_nack;
+    bool present;
+  } uDACS_mreq;
+  
+  bool uDACS_mread(uDACS_mreq &mreq) {
+    uint16_t nwords;
+    if (!mreq.present) return false;
+    int rv = mreq.SB->mread_subbus_nw(mreq.mreq, mreq.rvals, &nwords);
+    if (rv < 0) {
+      msg(2, "mread_subbus_nw(%s) returned error %d", mreq.name, rv);
+      return false;
+    }
+    if (nwords != mreq.mreq->n_reads) {
+      msg(2, "mread_subbus_nw(%s) returned %d words, expected %d",
+            mreq.name, nwords, mreq.mreq->n_reads);
+      return false;
+    }
+    switch (rv) {
+      case SBS_OK:
+        if (mreq.saw_nack) {
+          msg(0, "%s recovered from NACK", mreq.name);
+          mreq.saw_nack = false;
+        }
+        return true;
+      case SBS_NOACK:
+        if (!mreq.saw_nack) {
+          msg(2, "%s reported NACK on read", mreq.name);
+          mreq.saw_nack = true;
+        }
+        return true;
+      default:
+        if (!mreq.saw_nack) {
+          msg(2, "%s unexpected return code %d",
+              mreq.name, rv);
+          mreq.saw_nack = true;
+        }
+        return true;
+    }
+  }
+  
+  void identify_board(subbuspp *SB, const char *which) {
+    uint16_t values[0x2D];
+    uint16_t nread;
+    subbus_mread_req *mreq = SB->pack_mread_request(0x2D, "2:1:5,8|28@9");
+    int rv = SB->mread_subbus_nw(mreq, values, &nread);
+    free_memory(mreq);
+    if (rv == SBS_OK) {
+      const char *desc = (const char *)&values[5];
+      msg(0, "  Board ID:%d Build:%d S/N:%d Instrument:%d",
+        values[0], values[1], values[2], values[3]);
+      msg(0, "  Len: %d Desc: %s", values[4], desc);
+    } else if (rv == SBS_NOACK) {
+      msg(2, "NACK received from identify_board() request for %s", rv, which);
+    } else {
+      msg(2, "Error %d from identify_board() request for %s", rv, which);
+    }
+  }
+  
+  void uDACS_init(uDACS_mreq &mreq, const char *name) {
+    msg(0, "uDACS_init()");
+    mreq.SB = new subbuspp(name, "serusb");
+    mreq.name = name;
+    mreq.rvals = 0;
+    mreq.saw_nack = false;
+    mreq.present = false;
+    msg(0, "%s->load()", name);
+    int subfunc = mreq.SB->load();
+    if (subfunc == 0) {
+      msg(2, "subbus load() failed");
+    } else {
+      mreq.present = true;
+      if (subfunc != 9 && subfunc != 14 && subfunc != 15) {
+        msg(2, "Expected Subfunction 9, 14 or 15 for uDACS, was %d",
+               subfunc);
+      }
+      msg(0, "%s->identify_board();", name);
+      identify_board(mreq.SB, name);
+      mreq.mreq = 0;
+    }
+  }
+%}

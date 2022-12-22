@@ -1,0 +1,84 @@
+TM typedef signed short IWG1_Drift { text "%6d"; }
+TM typedef float IWG1_float { text "%9.4f"; }
+TM typedef IWG1_float IWG1_alt { text "%9.3f"; }
+TM typedef uint8_t IWG1_uchar { text "%3u"; }
+TM 1 Hz IWG1_Drift TDrift;
+TM 1 Hz IWG1_float TDDrift;
+TM 1 Hz IWG1_float Lat;
+TM 1 Hz IWG1_float Lon;
+TM 1 Hz IWG1_alt   GPS_MSL_Alt;
+TM 1 Hz IWG1_alt   WGS_84_Alt;
+TM 1 Hz IWG1_alt   Press_Alt;
+TM 1 Hz IWG1_alt   Radar_Alt;
+TM 1 Hz IWG1_float Grnd_Spd;
+TM 1 Hz IWG1_float True_Airspeed;
+TM 1 Hz IWG1_float Indicated_Airspeed;
+TM 1 Hz IWG1_float Mach_Number;
+TM 1 Hz IWG1_float Vert_Velocity;
+TM 1 Hz IWG1_float True_Hdg;
+TM 1 Hz IWG1_float Track;
+TM 1 Hz IWG1_float Drift;
+TM 1 Hz IWG1_float Pitch;
+TM 1 Hz IWG1_float Roll;
+TM 1 Hz IWG1_alt   Side_slip;
+TM 1 Hz IWG1_alt   Angle_of_Attack;
+TM 1 Hz IWG1_float Ambient_Temp;
+TM 1 Hz IWG1_float Dew_Point;
+TM 1 Hz IWG1_float Total_Temp;
+TM 1 Hz IWG1_float Static_Press;
+TM 1 Hz IWG1_alt   Dynamic_Press;
+TM 1 Hz IWG1_float Cabin_Press;
+TM 1 Hz IWG1_float Wind_Speed;
+TM 1 Hz IWG1_float Wind_Dir;
+TM 1 Hz IWG1_alt   Vert_Wind_Spd;
+TM 1 Hz IWG1_float Solar_Zenith;
+TM 1 Hz IWG1_float Sun_Elev_AC;
+TM 1 Hz IWG1_float Sun_Az_Grd;
+TM 1 Hz IWG1_float Sun_Az_AC;
+TM 1 Hz IWG1_uchar IWG1_Stale;
+
+TM "Receive" IWG1 0;
+
+Group IWG1 ( TDrift, TDDrift, Lat, Lon, GPS_MSL_Alt, WGS_84_Alt, Press_Alt,
+        Radar_Alt, Grnd_Spd, True_Airspeed, Indicated_Airspeed,
+        Mach_Number, Vert_Velocity, True_Hdg, Track, Drift, Pitch, Roll,
+        Side_slip, Angle_of_Attack, Ambient_Temp, Dew_Point, Total_Temp,
+        Static_Press, Dynamic_Press, Cabin_Press, Wind_Speed, Wind_Dir,
+        Vert_Wind_Spd, Solar_Zenith, Sun_Elev_AC, Sun_Az_Grd, Sun_Az_AC,
+        IWG1_Stale ) {
+
+  TDrift = calc_drift(IWG1.Time);
+  TDDrift = dtime() - IWG1.Time;
+  Lat = IWG1.Lat;
+  Lon = IWG1.Lon;
+  GPS_MSL_Alt = IWG1.GPS_MSL_Alt;
+  WGS_84_Alt = IWG1.WGS_84_Alt;
+  Press_Alt = IWG1.Press_Alt;
+  Radar_Alt = IWG1.Radar_Alt;
+  Grnd_Spd = IWG1.Grnd_Spd;
+  True_Airspeed = IWG1.True_Airspeed;
+  Indicated_Airspeed = IWG1.Indicated_Airspeed;
+  Mach_Number = IWG1.Mach_Number;
+  Vert_Velocity = IWG1.Vert_Velocity;
+  True_Hdg = IWG1.True_Hdg;
+  Track = IWG1.Track;
+  Drift = IWG1.Drift;
+  Pitch = IWG1.Pitch;
+  Roll = IWG1.Roll;
+  Side_slip = IWG1.Side_slip;
+  Angle_of_Attack = IWG1.Angle_of_Attack;
+  Ambient_Temp = IWG1.Ambient_Temp;
+  Dew_Point = IWG1.Dew_Point;
+  Total_Temp = IWG1.Total_Temp;
+  Static_Press = IWG1.Static_Press;
+  Dynamic_Press = IWG1.Dynamic_Press;
+  Cabin_Press = IWG1.Cabin_Press;
+  Wind_Speed = IWG1.Wind_Speed;
+  Wind_Dir = IWG1.Wind_Dir;
+  Vert_Wind_Spd = IWG1.Vert_Wind_Spd;
+  Solar_Zenith = IWG1.Solar_Zenith;
+  Sun_Elev_AC = IWG1.Sun_Elev_AC;
+  Sun_Az_Grd = IWG1.Sun_Az_Grd;
+  Sun_Az_AC = IWG1.Sun_Az_AC;
+  IWG1_Stale = IWG1_obj->Stale(255);
+}
