@@ -25,8 +25,7 @@ IDISTRIB = doit
 
 Moudicol : -lsubbuspp
 Moudisrvr : -lsubbuspp uDACS_cmd.oui
-Moudidisp : Moudi.tbl uDACS.tbl
-uDACSdisp : uDACS.tbl
+Moudidisp : Moudi.tbl
 IWG1disp : IWG1.tbl
 Moudialgo : Moudi.tma $swsbase
 UDPext : UDP.tmc UDP.cc UDPext.oui

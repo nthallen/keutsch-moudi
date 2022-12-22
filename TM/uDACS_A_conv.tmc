@@ -121,3 +121,6 @@ MMcmd_t MMcmd; Invalidate MMcmd;
 TM typedef uint8_t MMstat_t { text "%6u" MMstat_text(); }
 MMstat_t MMstat; Invalidate MMstat;
 { MMstat = (PwrStat>>6)&3; Validate MMstat; }
+
+uDACS_on_off PumpCmd; Invalidate PumpCmd;
+{ PumpCmd = (PwrStat>>3) & 1; Validate PumpCmd; }

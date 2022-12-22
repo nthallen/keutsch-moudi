@@ -1,0 +1,65 @@
+Input "TMbase.tbl";
+Input "Alicat.tbl";
+
+Moudi {
+  HBox { +-; Title: "Mini-Moudi"; -+ };
+  Command: (MMcmd,5);
+  Status:  (MMstat,6);
+}
+
+ADC_A {
+  HBox { +-; Title: ADC_A; -+ };
+  RPi_T: (RPi_T,7) C;
+  Amb_T: (Amb_T,7) C;
+  Rov1T: (Rov1T,7) C;
+  Rov2T: (Rov2T,7) C;
+  Rov3T: (Rov3T,7) C;
+  Rov4T: (Rov4T,7) C;
+  Rov5T: (Rov5T,7) C;
+  { Status: (uDACS_A_status,4) N: (uDACS_A_N,5) };
+}
+
+MS5607 {
+  HBox { +-; Title: MS5607; -+ };
+  P: (MS5607_P,8) mbar;
+  T: (MS5607_T,7) C;
+}
+
+Pump {
+  HBox { +-; Title: Pump; -+ };
+  Cmd: (PumpCmd,3);
+# No Pump Status Pin available
+# Cmd: HBox { (PumpCmd,3); "/"; (PumpS) };
+  T:   (PumpT,7) C;
+  V:   (PumpV,6) V;
+}
+
+TMbaseC {
+  HBox{ +-; Title: "System"; -+ };
+  [TMbase_data];
+  SWStat:   (SWStat,3);
+  Fail:     (FailText,3);
+  Mode:     (ModeText,3);
+  VGlue 0+1;
+  [TMbase_times]
+}
+
+{ HBox {
+    |+;
+    { HBox {
+        {
+          [Moudi];
+          [Pump];
+        }; |+; {
+          [ADC_A];
+        }
+      };
+      [Alicat_hk];
+      HBox { HGlue 0+1; { Driver: (Alicat_Stale,3) } }
+    }; |+; {
+      [MS5607];
+      [TMbaseC];
+    }; |+
+  };
+  -;
+}

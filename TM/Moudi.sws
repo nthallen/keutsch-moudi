@@ -4,39 +4,5 @@ SW_Variable: SWStat SW Status
   SWS_LAND             4 Altitude Land:
     depending on (OFF_GROUND) using_swp = SWStat; break;
 
-# SWS_EXPLORE_FLOWS    20 Explore Flows:            Validate Explore_Flows; break;
-# SWS_FLOWS_ABORT      21 Abort Flows:              Validate Flows_Abort; break;
-# SWS_FIXED_FLOWS      22 Fixed Flow:               Validate Fixed_Flow; break;
-# SWS_PPUMP_DISABLE    23 Disable POPS Pump Algo:   Validate PPump_Disable; break;
-# SWS_BPUMP_DISABLE    24 Disable Bypass Pump Algo: Validate BPump_Disable; break;
-
-  SWS_POPS_POWER_ON    36 POPS Power Up Only:       Validate POPS_Pwr_On; break;
-  SWS_POPS_STARTUP     30 POPS Startup:             Validate POPS_Startup; break;
-  SWS_POPS_SHUTDOWN    31 POPS Shutdown:            Validate POPS_Shutdown; break;
-  SWS_POPS_FLOW_PI     34 POPS Flow PI:             Validate POPS_Flow_PI_Init; break;
-  SWS_POPS_FLOW_QPI    26 POPS Flow Quick PI:       Validate POPS_Flow_PI_Quick_Init; break;
-  SWS_POPS_FLOW_STOP   32 POPS Flow Stop:           Validate POPS_Flow_Stop; break;
-  SWS_BYPASS_FLOW_STOP 33 Bypass Flow Stop:         Validate Bypass_Flow_Stop; break;
-  SWS_BYPASS_FLOW_ISO  35 Bypass Flow Isokinetic:   Validate Bypass_Flow_Iso_Init; break;
-
   SWS_TIME_WARP       253 Time Warp:                break;
   SWS_SHUTDOWN        255 Shutdown Full:            Validate Shutdown; break;
-
-SW_Variable: <float,LFE_Gain_t> LFE_PGain Set LFE PGain
-  : &LFE_gain { $0 = $1; }
-SW_Variable: <float,LFE_Gain_t> LFE_IGain Set LFE IGain
-  : &LFE_gain { $0 = $1; }
-SW_Variable: <float,BP_Gain_t> BPmp_PGain Set Bypass Pump PGain
-  : &LFE_gain { $0 = $1; }
-SW_Variable: <float,BP_Gain_t> BPmp_IGain Set Bypass Pump IGain
-  : &LFE_gain { $0 = $1; }
-SW_Variable: <uint8_t,BPLPF_t> BPmp_LPFP Set Bypass Pump Filter Period
-  : &LPFP { $0 = $1; }
-SW_Variable: <uint8_t,BPLPF_t> Sim_Vel Set Simulated Velocity
-  : &SimVel { $0 = $1; }
-SW_Variable: <uint8_t,BPLPF_t> BPmp_Per Set Bypass Pump PI Period
-  : &BPPer { $0 = $1; }
-SW_Variable: <uint8_t,BPLPF_t> IsoKin_pct Set Isokinetic Flow Percentage
-  : &IsoPct { $0 = $1; }
-SW_Variable: <uint16_t,U16Sim_T> Sim_Alt Set Simulated Altitude
-  : %ld (Enter altitude in ft) { $0 = $1; }

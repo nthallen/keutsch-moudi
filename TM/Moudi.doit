@@ -1,0 +1,5 @@
+display Moudidisp
+display IWG1disp
+client Moudiclt
+memo
+batchfile interact

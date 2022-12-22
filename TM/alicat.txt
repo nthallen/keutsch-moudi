@@ -4,4 +4,4 @@ Rate 1 Hz
 Port /dev/ser3
 #Digital BMFC 1 MFC 5000 ccm 5000 nccm 1050 mbar "MFC Bypass"
 #Digital PMFC 2 MFC 2000 ccm 2000 nccm 1050 mbar "MFC POPS"
-Digital MMFC 3 MFC 2000 ccm 2000 nccm 1050 mbar "MFC Moudi"
+Digital MMFC 1 MFC 2000 ccm 2000 nccm 1050 mbar "MFC Moudi"

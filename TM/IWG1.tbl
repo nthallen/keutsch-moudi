@@ -1,0 +1,49 @@
+Col1 {
+  Lat: (Lat,9);
+  Lon: (Lon,9);
+  GPS_MSL_Alt: (GPS_MSL_Alt,9);
+  WGS_84_Alt: (WGS_84_Alt,9);
+  Press_Alt: (Press_Alt,9);
+  Radar_Alt: (Radar_Alt,9);
+  Grnd_Spd: (Grnd_Spd,9);
+  True_Airspd: (True_Airspeed,9);
+  Ind_Airspd: (Indicated_Airspeed,9);
+  Mach_Number: (Mach_Number,9);
+  Vert_Vel: (Vert_Velocity,9);
+  True_Hdg: (True_Hdg,9);
+  Track: (Track,9);
+  Drift: (Drift,9);
+  Pitch: (Pitch,9);
+  Roll: (Roll,9);
+  Side_slip: (Side_slip,9);
+  Ang_of_Attack: (Angle_of_Attack,9);
+}
+
+Col2 {
+  Amb_Temp: (Ambient_Temp,9);
+  Dew_Point: (Dew_Point,9);
+  Total_Temp: (Total_Temp,9);
+  Static_Press: (Static_Press,9);
+  Dyn_Press: (Dynamic_Press,9);
+  Cabin_Press: (Cabin_Press,9);
+  Wind_Speed: (Wind_Speed,9);
+  Wind_Dir: (Wind_Dir,9);
+  Vert_Wind_Spd: (Vert_Wind_Spd,9);
+  Solar_Zenith: (Solar_Zenith,9);
+  Sun_Elev_AC: (Sun_Elev_AC,9);
+  Sun_Az_Grd: (Sun_Az_Grd,9);
+  Sun_Az_AC: (Sun_Az_AC,9);
+  IWG1_Stale: (IWG1_Stale,9);
+  VGlue 0+1;
+  +-+;
+  TDrift: (TDrift,9);
+  TDDrift: (TDDrift,9);
+  Time: (flttime,9);
+  MFCtr: (MFCtr,5);
+}
+
+ {
+  HBox { -; Title: IWG1; - };
+  HBox { +|+; [Col1]; |; [Col2]; +|+ };
+  -;
+}

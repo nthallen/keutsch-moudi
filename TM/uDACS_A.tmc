@@ -18,6 +18,7 @@ TM 1 Hz uDACS_DAC_t uDACS_A_VSet1;
 TM 1 Hz uDACS_DAC_t uDACS_A_VSet2;
 TM 1 Hz uDACS_DAC_t uDACS_A_VSet3;
 */
+TM 1 Hz uDACS_DAC_t PumpV; /* uDACS_A_VSet1 */
 
 /* AD7770 for uDACS */
 /*
@@ -38,12 +39,12 @@ TM 1 Hz AD7770_status_t uDACS_A_errors;
 TM 1 Hz ADS1115_status_t uDACS_A_status;
 TM 1 Hz uDACS16_T30K75KU Rov1T;
 TM 1 Hz uDACS16_T30K75KU Rov2T;
+TM 1 Hz uDACS16_T30K75KU PumpT;
+TM 1 Hz uDACS16_T30K75KU RPi_T;
+TM 1 Hz uDACS16_T30K75KU Amb_T;
 TM 1 Hz uDACS16_T30K75KU Rov3T;
 TM 1 Hz uDACS16_T30K75KU Rov4T;
 TM 1 Hz uDACS16_T30K75KU Rov5T;
-TM 1 Hz uDACS16_T30K75KU Rov6T;
-TM 1 Hz uDACS16_T30K75KU Rov7T;
-TM 1 Hz uDACS16_T30K75KU Rov8T;
 TM 1 Hz ADS1115_count_t uDACS_A_N;
 
 /* RTC data */
@@ -56,8 +57,8 @@ TM 1 Hz RTC_loopdur_t uDACS_A_maxloopdur;
 group uDACS_A (
     MS5607_P, MS5607_T,
     /* uDACS_A_VSet0, uDACS_A_VSet1, uDACS_A_VSet2, uDACS_A_VSet3, */
-    uDACS_A_status, Rov1T, Rov2T, Rov3T, Rov4T, Rov5T, Rov6T, Rov7T,
-    Rov8T, uDACS_A_N,
+    uDACS_A_status, Rov1T, Rov2T, PumpT, RPi_T, Amb_T, Rov3T, Rov4T,
+    Rov5T, uDACS_A_N,
     /* uDACS_A_elapsed, uDACS_A_curloopdur, uDACS_A_maxloopdur, */
     FailMode, PwrStat) {
   if (uDACS_mread(uDACS_A)) {
@@ -72,12 +73,12 @@ group uDACS_A (
     uDACS_A_status = uDACS_A_rvals[4];
     Rov1T = uDACS_A_rvals[5];
     Rov2T = uDACS_A_rvals[6];
-    Rov3T = uDACS_A_rvals[7];
-    Rov4T = uDACS_A_rvals[8];
-    Rov5T = uDACS_A_rvals[9];
-    Rov6T = uDACS_A_rvals[10];
-    Rov7T = uDACS_A_rvals[11];
-    Rov8T = uDACS_A_rvals[12];
+    PumpT = uDACS_A_rvals[7];
+    RPi_T = uDACS_A_rvals[8];
+    Amb_T = uDACS_A_rvals[9];
+    Rov3T = uDACS_A_rvals[10];
+    Rov4T = uDACS_A_rvals[11];
+    Rov5T = uDACS_A_rvals[12];
     uDACS_A_N = uDACS_A_rvals[13];
     
     /*
@@ -88,5 +89,8 @@ group uDACS_A (
     
     FailMode = (uDACS_A_rvals[14] & 0x01) | (((uDACS_A_rvals[15] & 0x01)^0x01)<<4);
     PwrStat = uDACS_A_rvals[16] & 0xFF;
+    
+    PumpV = uDACS_A_rvals[17];
+
   }
 }

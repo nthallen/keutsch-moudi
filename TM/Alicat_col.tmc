@@ -1,0 +1,4 @@
+%{
+  #include "alicat.h"
+  alicat_tm_t Alicat[1];
+%}

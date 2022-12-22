@@ -1,0 +1,16 @@
+Moudi Rovers.txt
+# THIS FILE HAS NOT BEEN UPDATED WITH ACTUAL POSITIONS OF ROVERS
+# REMOVE THIS COMMENT WHEN THAT IS DONE
+
+This file should be updated if any of the rovers are moved or changed.
+This documents the 8 thermistor channels on the uDACS A board:
+
+TMname  Connector Wires     Location
+POPST    J10      ORN/ORN   POPS Top
+PPmpT    J11      YEL/YEL   POPS Pump Head
+BPmpT    J12      RED/RED   Bypass Pump Head
+RPi_T    J13      BLK/BLK   Raspberry Pi
+Amb_T    J14      YEL/YEL   Moudi Box Temp (Air)
+Rov1T    J15      RED/RED   Bypass Pump Motor Bracket
+Rov2T    J16                Not installed
+Rov3T    J17      ORN/ORN   Moudi Box Temp (Box center)

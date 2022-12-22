@@ -1,0 +1,66 @@
+%{
+  /* Moudi.tma */
+%}
+
+State Init {
+    > Telemetry Start
+ +1 > Fail Light Off
+    depending on (OFF_GROUND) { Validate Startup; }
+}
+
+State Startup {
+  depending on (ON_GROUND) { Validate Shutdown; }
+}
+
+State Shutdown {
+#     Hold until valid (POPS_Is_Off, POPS_Flow_Off, Bypass_Flow_Off) or 2:00
+#     else {
+#       msg(2, "Timed out waiting for POPS, POPS_Flow and Bypass_Flow to shutdown");
+#     }
+  +1  > Fail Light On
+      > Quit
+}
+
+# -----------------------------------------------------------------------------
+# Partition 2: Altitude
+# -----------------------------------------------------------------------------
+Partition
+
+# This partition converts pressure (altitude) into states 
+# (ON_GROUND, OFF_GROUND).
+# The threshold pressures each have two values - one for 
+# the flight up and the other for the flight down.
+# This provides hysteresis and prevents bouncing.  
+# Of course we need to ensure that P_ground_up < P_ground_dn,
+# which is to say P_ground_up represent a higher altitude.
+# We also want to ensure that P_ground_dn is high enough to
+# allow the system to shutdown before landing while not being
+# so high that it will be triggered during a mid-flight
+# altitude scan. 
+
+# convert(MS5607_P) is a float value in mbar
+#
+#
+# REF: 650 torr ~867 mbar ~5000 ft
+# Palmdale, CA is at elevation 2657'
+# Salina, KS is at elevation 1227'
+
+%{ /* Altitude definitions */
+    double P_ground_up = 800.;
+    double P_ground_dn = 850.;
+    int using_swp = 0;
+%}
+
+State ON_GROUND {
+  { using_swp = 0; }
+  { if (using_swp || (convert(MS5607_P) > 0 && convert(MS5607_P) < P_ground_up))
+      Validate OFF_GROUND;
+  }
+}
+
+State OFF_GROUND {
+  { if ((using_swp == SWS_LAND) || (!using_swp && convert(MS5607_P) > P_ground_dn)) {
+      Validate ON_GROUND;
+    }
+  }
+}

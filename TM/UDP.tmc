@@ -36,9 +36,9 @@
     //   ISO8601 time in second column
     UDPcsv_status.init(UDPstatus, 1000);
     UDPcsv_status.init_col(3-2,"Status","%.0lf");
-    UDPcsv_status.init_col(4-2,"MoudiValveS");
+    UDPcsv_status.init_col(4-2,"MoudiValveS","%.0lf");
     UDPcsv_status.init_col(5-2,"MoudiFlow");
-    UDPcsv_status.init_col(6-2,"PumpS");
+    UDPcsv_status.init_col(6-2,"PumpS","%.0lf");
     UDPcsv_status.init_col(7-2, "PumpV");
     UDPcsv_status.init_col(8-2, "PumpT");
     UDPcsv_status.init_col(9-2, "InstP");
@@ -65,9 +65,9 @@ depending on (1 Hz) {
   UDPcsv_status.set_col(3-2,status);
   UDPcsv_status.set_col(4-2, MMstat);
   UDPcsv_status.set_col(5-2, text(MMFC_VolFlow));
-  UDPcsv_status.set_col(6-2, PumpStatusTBD);
-  UDPcsv_status.set_col(7-2, PumpVoltageTBD);
-  UDPcsv_status.set_col(8-2, PumpTempTBD);
+  UDPcsv_status.set_col(6-2, PumpCmd);
+  UDPcsv_status.set_col(7-2, text(PumpV));
+  UDPcsv_status.set_col(8-2, text(PumpT));
   UDPcsv_status.set_col(9-2, text(MS5607_P));
   UDPcsv_status.set_col(10-2, text(MS5607_T));
   UDPcsv_status.transmit("MOUDI", systime); /* dtime() */

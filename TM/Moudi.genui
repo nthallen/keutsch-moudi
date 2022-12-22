@@ -1,0 +1,6 @@
+HEADER SABRE Moudi
+MNEMONIC moudi
+HOMEDIR MOUDI_DATA_DIR
+
+ 1 SWStat        Algo SWStat
+ 

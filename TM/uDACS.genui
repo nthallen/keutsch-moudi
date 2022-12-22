@@ -1,0 +1,24 @@
+  1 Fail:FailMode:0 uDACS_A Status %.0lf
+  1 Mode:FailMode:4 uDACS_A Status %.0lf
+  1 MS5607_P MS5607 P
+  1 MS5607_T MS5607 T
+# 1 uDACS_A_VSet0 uDACS_A DAC
+# 1 uDACS_A_VSet1 uDACS_A DAC
+# 1 uDACS_A_VSet2 uDACS_A DAC
+# 1 uDACS_A_VSet3 uDACS_A DAC
+  1 uDACS_A_status uDACS_A AIStat %.0lf
+  1 PumpT Pump Temps
+  1 RPi_T uDACS_A Temps
+  1 Amb_T uDACS_A Temps
+  1 Rov1T uDACS_A Temps
+  1 Rov2T uDACS_A Temps
+  1 Rov3T uDACS_A Temps
+  1 Rov4T uDACS_A Temps
+  1 Rov5T uDACS_A Temps
+
+  1 uDACS_A_N uDACS_A AI_N
+  1 PumpCmd:PwrStat:3 Pump Status %.0lf
+  1 PumpV Pump PumpV
+  
+  1 MMcmd  Moudi Command %.0lf
+  1 MMstat Moudi Status %.0lf

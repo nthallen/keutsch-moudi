@@ -1,0 +1,59 @@
+#! /usr/bin/expect -f
+set port /dev/ttyS8
+set verbose 0
+if {$argc>0} { set port [lindex $argv 0]}
+if {$argc>1} { set verbose 1 }
+
+log_user 0
+# spawn ser_chk -V -p $port
+spawn plink -serial -sercfg 57600,8,n,1,N $port 
+set timeout 1
+set board_id ""
+while 1 {
+  if {$verbose>0} { send_user "Requesting identification\r\n" }
+  send "V\r"
+  expect {
+    -re "U\[0-9]" {
+      if {$verbose>0} { send_user "\r\nSaw an error\r\n" }
+      continue
+    }
+    -re "VF:0:DPOPS uDACS16 " {
+      if {$verbose>0} { send_user "Identified uDACS A\r\n" }
+      set board_id uDACS_A
+      break
+    }
+    -re "V(9|E):0:DPOPS uDACS B" {
+      if {$verbose>0} { send_user "Identified uDACS B\r\n" }
+      set board_id uDACS_B
+      break
+    }
+    timeout {
+      if {$verbose>0} { send_user "\r\nTimed out waiting\r\n" }
+      break
+    }
+  }
+  if {$verbose>0} { send_user "\r\nEnd of the loop\r\n" }
+}
+# send "\x01"
+# send_user "\r\nSending SIGINT to pid [ exp_pid ]\r\n"
+exec kill -INT [ exp_pid ]
+expect {
+  eof {set saw_eof yes}
+  timeout {set saw_eof no}
+}
+
+if { [string compare $board_id ""] == 0 } {
+  # This device was not identified as uDACS
+  # The remaining option is RS485 connected to the Alicats
+  # which talk Modbus. This is non-trivial to test although
+  # I might be able to parrot what I see when the driver
+  # is running. In the meantime, I will simply assume this
+  # is the RS485 device
+  # spawn ser_chk -V -b 19200 -p $port
+  # send_user "Cannot identify port $port"
+  set board_id RS485
+}
+
+if { [string compare $board_id ""] } {
+  send_user "$board_id=$port\n"
+}

@@ -1,0 +1,72 @@
+
+RS485=
+uDACS_A=
+id | grep -q '(dialout)' ||
+  msgf 2 "flight not in group dialout: `id`"
+for dev in /dev/ttyUSB*; do
+  if [ -c "$dev" ]; then
+    verb=`$TMBINDIR/USB_ID.exp $dev verbose | tr [:cntrl:] ' '`
+    verb=${verb% }
+    foo=${verb##* }
+    case "$foo" in
+      *=*)
+        port=${foo#*=}
+        device=${foo%=*}
+        eval deviceport="\$$device"
+        if [ -n "$deviceport" ]; then
+          msgf 0 "$device identified on both $deviceport and $port"
+        else
+          eval $foo
+        fi;;
+      *) msgf 0 "port $dev unidentified verb='$verb'";;
+    esac
+  fi
+done
+
+for device in RS485 uDACS_A; do
+  eval deviceport="\$$device"
+  if [ -n "$deviceport" ]; then
+    msgf 0 "$device identified on port $deviceport"
+  else
+    msgf 2 "$device not found"
+  fi
+done
+
+if [ -n "$uDACS_A" ]; then
+  Launch      memo     memo -o $Experiment.log -l3
+              [ -z "$launch_err" ] &&
+                msg -nflight "Running script runfile.flight"
+
+  flight_mode=yes
+  Launch      uDACS_A  subbusd_serusb -q -p $uDACS_A -s uDACS_A -n uDACS_A
+  msgf -V 0 sbswitch -N uDACS_A -Q 1 1
+  sbswitch -N uDACS_A -Q 1 1 && flight_mode=no
+  msgf -V 0 sbswitch report flight_mode=$flight_mode
+  if [ $flight_mode = no ]; then
+    jobs=`jobs -p`
+    msgf -V 0 "Waiting for jobs $jobs to terminate"
+    wait $jobs
+  fi
+else
+  flight_mode=no
+fi
+
+if [ $flight_mode = yes ]; then
+  sleep 10
+  Launch      tm_bfr   bfr -H bfr: -S:
+  Launch      -TMC-    lgr -N `mlf_find LOG` -n lgr
+  Launch      tm_gen   Moudicol
+  Launch      cmd      Moudisrvr -H srvr: -S:
+  Launch      -        tmdf
+  Launch      -        IWG1
+  Launch      -        UDPext
+
+if [ -n "$RS485" ]; then
+  Launch      -        alicat -a 1:BMFC,2:PMFC,3:MMFC -p $RS485
+# Launch      -        alicat -a 1:BMFC,2:PMFC -p $RS485
+fi
+
+  Launch      -        POPS -v
+  Launch      -TMC-    Moudialgo -v
+
+fi

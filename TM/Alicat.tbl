@@ -1,0 +1,47 @@
+MMFC_vfull {
+  Set:    (MMFC_Set,7)       nccm;
+  MFlow:  (MMFC_MassFlow,7)  nccm;
+  VFlow:  (MMFC_VolFlow,7)   ccm;
+  T:      (MMFC_T,7)         C;
+  P:      (MMFC_P,7)         mbar;
+  Status: (MMFC_Status,4);
+  Stale:  (MMFC_Stale,3);
+}
+
+MMFC_vft {
+  HBox { +-; Title: MMFC; -+ };
+  [MMFC_vfull];
+}
+
+MMFC_vdata {
+  Set:    (MMFC_Set,7)       nccm;
+  MFlow:  (MMFC_MassFlow,7)  nccm;
+  VFlow:  (MMFC_VolFlow,7)   ccm;
+  T:      (MMFC_T,7)         C;
+  P:      (MMFC_P,7)         mbar;
+}
+
+MMFC_vdt {
+  HBox { +-; Title: MMFC; -+ };
+  [MMFC_vdata];
+}
+
+Alicat_flows {
+  HBox { +-; Title: Alicat; -+ };
+  ""    >Set<        >Flow<;
+  MMFC: (MMFC_Set,7) (MMFC_VolFlow,7) ccm;
+  { HGlue 0+1 Stale: (Alicat_Stale,3) }
+}
+
+Alicat_hk {
+  HBox { +-; Title: "Alicat HK"; -+ };
+  ""    >Temp<    "" >Pres< "" >Status< >Stale<;
+  MMFC: (MMFC_T,7) C (MMFC_P,7) mbar
+(MMFC_Status,4) (MMFC_Stale,3);
+}
+
+Alicat_flows2 {
+  HBox { +-; Title: Alicat; -+ };
+  ""    >Set<        >ccm<             >nccm<;
+  MMFC: (MMFC_Set,7) (MMFC_VolFlow,7)  (MMFC_MassFlow,7);
+}

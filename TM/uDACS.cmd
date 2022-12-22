@@ -73,7 +73,7 @@
       }
     }
   : Set Pump Speed %f (Volts) Volts * {
-      double counts = $5 * 65536./5.;
+      double counts = $4 * 65536./5.;
       uint16_t icounts;
       if (counts < 0) icounts = 0;
       else if (counts > 65535) icounts = 65535;

@@ -1,0 +1,8 @@
+  1 MMFC_Status Alicat_HK Status %.0lf
+  1 MMFC_Stale  Alicat_HK Stale
+  1 MMFC_T      Alicat_HK T
+  1 MMFC_P      Alicat_HK mbar
+  1 MMFC_Set    Alicat nccm
+  1 MMFC_MassFlow   Alicat nccm
+  1 MMFC_VolFlow   Alicat ccm
+  1 Alicat_Stale Alicat_HK Stale

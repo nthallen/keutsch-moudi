@@ -1,0 +1,38 @@
+%{
+  /* alicat driver interface */
+  #define ALICAT_MAX_DRIVES 1
+  #include "alicat.h"
+  #define Alicat_drive(x,y) Alicat[x].y
+%}
+TM typedef float Alicat_Flow0_t { text "%7.0f"; }
+TM typedef float Alicat_Flow1_t { text "%7.1f"; }
+TM typedef float Alicat_Flow2_t { text "%7.2f"; }
+TM typedef float Alicat_Flow3_t { text "%7.3f"; }
+TM typedef float Alicat_Flow4_t { text "%7.4f"; }
+TM typedef uint16_t Alicat_Status_t { text "%04X"; }
+TM typedef uint8_t Alicat_Stale_t { text "%3u"; }
+TM typedef float Alicat_Temp_t { text "%7.2f"; }
+TM typedef float Alicat_Press_t { text "%7.2f"; }
+
+TM 1 Hz Alicat_Stale_t Alicat_Stale;
+TM 1 Hz Alicat_Flow1_t MMFC_Set;
+TM 1 Hz Alicat_Flow1_t MMFC_VolFlow;
+TM 1 Hz Alicat_Flow1_t MMFC_MassFlow;
+TM 1 Hz Alicat_Temp_t MMFC_T;
+TM 1 Hz Alicat_Flow1_t MMFC_P;
+TM 1 Hz Alicat_Status_t MMFC_Status;
+TM 1 Hz Alicat_Stale_t MMFC_Stale;
+TM "Receive" Alicat 1;
+
+Group Alicat (Alicat_Stale, MMFC_Set, MMFC_VolFlow, MMFC_MassFlow, MMFC_T,
+    MMFC_P, MMFC_Status, MMFC_Stale) {
+  Alicat_Stale = Alicat_obj->Stale(255);
+  MMFC_Set = Alicat_drive(0,flow_setpoint);
+  MMFC_VolFlow = Alicat_drive(0,volumetric_flow);
+  MMFC_MassFlow = Alicat_drive(0,mass_flow);
+  MMFC_T = Alicat_drive(0,flow_temp);
+  MMFC_P = Alicat_drive(0,pressure);
+  MMFC_Status = Alicat_drive(0,status);
+  MMFC_Stale = Alicat_drive(0,stale);
+  Alicat_obj->synch();
+}
