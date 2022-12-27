@@ -11,18 +11,18 @@ set timeout 1
 set board_id ""
 while 1 {
   if {$verbose>0} { send_user "Requesting identification\r\n" }
-  send "V\r"
+  send "V\n"
   expect {
     -re "U\[0-9]" {
       if {$verbose>0} { send_user "\r\nSaw an error\r\n" }
       continue
     }
-    -re "VF:0:DPOPS uDACS16 " {
+    -re "VF:0:SMoudi uDACS16 " {
       if {$verbose>0} { send_user "Identified uDACS A\r\n" }
       set board_id uDACS_A
       break
     }
-    -re "V(9|E):0:DPOPS uDACS B" {
+    -re "V(9|E):0:SMoudi uDACS B" {
       if {$verbose>0} { send_user "Identified uDACS B\r\n" }
       set board_id uDACS_B
       break
