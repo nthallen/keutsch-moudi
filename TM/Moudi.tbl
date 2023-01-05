@@ -49,13 +49,13 @@ TMbaseC {
     { HBox {
         {
           [Moudi];
-          [Pump];
+          [MMFC_vft];
+          Driver: (Alicat_Stale,3);
         }; |+; {
+          [Pump];
           [ADC_A];
         }
       };
-      [Alicat_hk];
-      HBox { HGlue 0+1; { Driver: (Alicat_Stale,3) } }
     }; |+; {
       [MS5607];
       [TMbaseC];
