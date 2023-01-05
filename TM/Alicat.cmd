@@ -20,5 +20,5 @@
 %}
 
 &command
-  : MFC Moudi Flow SetPoint %f (nccm) nccm * { Alicat_set(1, $5); }
+  : MFC Moudi Flow SetPoint %f (ccm) ccm * { Alicat_set(1, $5); }
   ;

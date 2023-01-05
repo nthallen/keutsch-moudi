@@ -1,5 +1,5 @@
 MMFC_vfull {
-  Set:    (MMFC_Set,7)       nccm;
+  Set:    (MMFC_Set,7)       ccm;
   MFlow:  (MMFC_MassFlow,7)  nccm;
   VFlow:  (MMFC_VolFlow,7)   ccm;
   T:      (MMFC_T,7)         C;
@@ -14,7 +14,7 @@ MMFC_vft {
 }
 
 MMFC_vdata {
-  Set:    (MMFC_Set,7)       nccm;
+  Set:    (MMFC_Set,7)       ccm;
   MFlow:  (MMFC_MassFlow,7)  nccm;
   VFlow:  (MMFC_VolFlow,7)   ccm;
   T:      (MMFC_T,7)         C;
