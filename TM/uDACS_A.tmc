@@ -37,14 +37,16 @@ TM 1 Hz AD7770_status_t uDACS_A_errors;
 
 /* ADS1115 for uDACS16 */
 TM 1 Hz ADS1115_status_t uDACS_A_status;
-TM 1 Hz uDACS16_T30K75KU Rov1T;
-TM 1 Hz uDACS16_T30K75KU Rov2T;
 TM 1 Hz uDACS16_T30K75KU PumpT;
+TM 1 Hz uDACS16_T30K75KU ValveT;
+TM 1 Hz uDACS16_T30K75KU PlateT;
 TM 1 Hz uDACS16_T30K75KU RPi_T;
 TM 1 Hz uDACS16_T30K75KU Amb_T;
+/*
 TM 1 Hz uDACS16_T30K75KU Rov3T;
 TM 1 Hz uDACS16_T30K75KU Rov4T;
 TM 1 Hz uDACS16_T30K75KU Rov5T;
+*/
 TM 1 Hz ADS1115_count_t uDACS_A_N;
 
 /* RTC data */
@@ -57,8 +59,7 @@ TM 1 Hz RTC_loopdur_t uDACS_A_maxloopdur;
 group uDACS_A (
     MS5607_P, MS5607_T,
     /* uDACS_A_VSet0, uDACS_A_VSet1, uDACS_A_VSet2, uDACS_A_VSet3, */
-    uDACS_A_status, Rov1T, Rov2T, PumpT, RPi_T, Amb_T, Rov3T, Rov4T,
-    Rov5T, uDACS_A_N,
+    uDACS_A_status, PumpT, ValveT, PlateT, RPi_T, Amb_T, uDACS_A_N,
     /* uDACS_A_elapsed, uDACS_A_curloopdur, uDACS_A_maxloopdur, */
     FailMode, PwrStat) {
   if (uDACS_mread(uDACS_A)) {
@@ -71,14 +72,14 @@ group uDACS_A (
     uDACS_A_Vset3 = uDACS_A_rvals[3];
     */
     uDACS_A_status = uDACS_A_rvals[4];
-    Rov1T = uDACS_A_rvals[5];
-    Rov2T = uDACS_A_rvals[6];
-    PumpT = uDACS_A_rvals[7];
+    PumpT = uDACS_A_rvals[5];
+    ValveT = uDACS_A_rvals[6];
+    PlateT = uDACS_A_rvals[7];
     RPi_T = uDACS_A_rvals[8];
     Amb_T = uDACS_A_rvals[9];
-    Rov3T = uDACS_A_rvals[10];
+/*  Rov3T = uDACS_A_rvals[10];
     Rov4T = uDACS_A_rvals[11];
-    Rov5T = uDACS_A_rvals[12];
+    Rov5T = uDACS_A_rvals[12]; */
     uDACS_A_N = uDACS_A_rvals[13];
     
     /*

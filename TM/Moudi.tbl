@@ -9,13 +9,13 @@ Moudi {
 
 ADC_A {
   HBox { +-; Title: ADC_A; -+ };
-  RPi_T: (RPi_T,7) C;
-  Amb_T: (Amb_T,7) C;
-  Rov1T: (Rov1T,7) C;
-  Rov2T: (Rov2T,7) C;
-  Rov3T: (Rov3T,7) C;
-  Rov4T: (Rov4T,7) C;
-  Rov5T: (Rov5T,7) C;
+  RPi_T:  (RPi_T,7) C;
+  Amb_T:  (Amb_T,7) C;
+  ValveT: (ValveT,7) C;
+  PlateT: (PlateT,7) C;
+# Rov3T: (Rov3T,7) C;
+# Rov4T: (Rov4T,7) C;
+# Rov5T: (Rov5T,7) C;
   { Status: (uDACS_A_status,4) N: (uDACS_A_N,5) };
 }
 

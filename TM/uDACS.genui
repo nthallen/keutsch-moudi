@@ -7,14 +7,15 @@
 # 1 uDACS_A_VSet2 uDACS_A DAC
 # 1 uDACS_A_VSet3 uDACS_A DAC
   1 uDACS_A_status uDACS_A AIStat %.0lf
-  1 PumpT Pump Temps
-  1 RPi_T uDACS_A Temps
-  1 Amb_T uDACS_A Temps
-  1 Rov1T uDACS_A Temps
-  1 Rov2T uDACS_A Temps
-  1 Rov3T uDACS_A Temps
-  1 Rov4T uDACS_A Temps
-  1 Rov5T uDACS_A Temps
+  1 PumpT  Pump Temps
+  1 PumpT  uDACS_A Temps
+  1 RPi_T  uDACS_A Temps
+  1 Amb_T  uDACS_A Temps
+  1 ValveT uDACS_A Temps
+  1 PlateT uDACS_A Temps
+# 1 Rov3T uDACS_A Temps
+# 1 Rov4T uDACS_A Temps
+# 1 Rov5T uDACS_A Temps
 
   1 uDACS_A_N uDACS_A AI_N
   1 PumpCmd:PwrStat:3 Pump Status %.0lf

@@ -20,7 +20,7 @@ dfs.plot('asws','label','SW Stat','vars',{'SWStat'});
 dfs.plot('dacsa', 'label', 'uDACS A', 'plots', {'dacsas','dacsaais','dacsat','dacsaain'});
 dfs.plot('dacsas','label','Status','vars',{{'name','Fail','var_name','FailMode','bit_number',0},{'name','Mode','var_name','FailMode','bit_number',4}});
 dfs.plot('dacsaais','label','AI Stat','vars',{'uDACS_A_status'});
-dfs.plot('dacsat','label','Temps','vars',{'RPi_T','Amb_T','Rov1T','Rov2T','Rov3T','Rov4T','Rov5T'});
+dfs.plot('dacsat','label','Temps','vars',{'PumpT','RPi_T','Amb_T','ValveT','PlateT'});
 dfs.plot('dacsaain','label','AI N','vars',{'uDACS_A_N'});
 dfs.plot('ms', 'label', 'MS5607', 'plots', {'msp','mst'});
 dfs.plot('msp','label','P','vars',{'MS5607_P'});
