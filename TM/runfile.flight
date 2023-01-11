@@ -62,11 +62,9 @@ if [ $flight_mode = yes ]; then
   Launch      -        UDPext
 
 if [ -n "$RS485" ]; then
-  Launch      -        alicat -a 1:BMFC,2:PMFC,3:MMFC -p $RS485
-# Launch      -        alicat -a 1:BMFC,2:PMFC -p $RS485
+  Launch      -        alicat -a 1:MMFC -p $RS485
 fi
 
-  Launch      -        POPS -v
   Launch      -TMC-    Moudialgo -v
 
 fi
