@@ -29,5 +29,5 @@
   : Close { $0 = SWS_MOUDI_I_CLOSE; }
   ;
 &Sim_P <uint16_t>
-  : %d (Enter pressure in mbar) { $0 = $1 < 0 ? 0 : $1; }
+  : %d (Enter pressure in mbar) mbar { $0 = $1 < 0 ? 0 : $1; }
   ;
