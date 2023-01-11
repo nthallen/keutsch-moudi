@@ -4,5 +4,10 @@ SW_Variable: SWStat SW Status
   SWS_LAND             4 Altitude Land:
     depending on (OFF_GROUND) using_swp = SWStat; break;
 
-  SWS_TIME_WARP       253 Time Warp:                break;
-  SWS_SHUTDOWN        255 Shutdown Full:            Validate Shutdown; break;
+  SWS_TIME_WARP       253 Time Warp:  break;
+  SWS_SHUTDOWN        255 Shutdown:   Validate Shutdown; break;
+
+SW_Variable: MoudiMode SW MOUDI
+  SWS_MOUDI_P_CTRL    0   Pressure Control: reSet_it = 0; break;
+  SWS_MOUDI_I_OPEN    1   Open: reSet_it = 0; break;
+  SWS_MOUDI_I_CLOSE   2   Close: reSet_it = 0; break;

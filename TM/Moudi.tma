@@ -13,10 +13,10 @@ State Startup {
 }
 
 State Shutdown {
-#     Hold until valid (POPS_Is_Off, POPS_Flow_Off, Bypass_Flow_Off) or 2:00
-#     else {
-#       msg(2, "Timed out waiting for POPS, POPS_Flow and Bypass_Flow to shutdown");
-#     }
+      Hold until valid (Moudi_shutdown) or 2:00
+      else {
+        msg(2, "Timed out waiting for MOUDI to shutdown");
+      }
   +1  > Fail Light On
       > Quit
 }
@@ -64,3 +64,81 @@ State OFF_GROUND {
     }
   }
 }
+
+# -----------------------------------------------------------------------------
+# Partition 3: Mini-Moudi opened/closed
+# -----------------------------------------------------------------------------
+Partition
+
+%{
+  /* The P_moudi_low values define the low altitude/high pressure range for
+     mini-moudi sampling.
+     P_moudi_high values define the high altitude/low pressure range, if
+     applicable.
+     The _op values define a range within which we will open the valve.
+     The _cl values define a range outside of which we will close the valve.
+     The _op range should be entirely within in the _cl range with enough
+     margin to avoid rapid cycling.
+     All P_moudi values are in mbar, to match HPS_P.
+  */
+  #define P_moudi_low_op  140.
+  #define P_moudi_low_cl  145.
+  #define P_moudi_failsafe_op 200.
+  #define P_moudi_failsafe_cl 205.
+  
+  int moudi_open_P(double P) {
+    #ifdef P_moudi_high_op
+      return P <= P_moudi_low_op && P >= P_moudi_high_op;
+    #else
+      return P <= P_moudi_low_op;
+    #endif
+  }
+  
+  int moudi_close_P(double P) {
+    #ifdef P_moudi_high_op
+      return P > P_moudi_low_cl || P < P_moudi_high_cl;
+    #else
+      return P > P_moudi_low_cl;
+    #endif
+  }
+%}
+
+State Moudi_init {
+  +5 Validate Moudi_close;
+}
+
+State Moudi_close {
+    > Moudi Valve off
+    > MFC Moudi Flow Setpoint 0 ccm
+ +1 > Pump Power Off
+ +1 > Set Pump Speed 2 Volts
+
+  { if ((MoudiMode == SWS_MOUDI_P_CTRL &&
+            moudi_open_P(convert(MS5607_P))) ||
+        (MoudiMode == SWS_MOUDI_I_OPEN &&
+            convert(MS5607_P) < P_moudi_failsafe_op)) {
+      Validate Moudi_open;
+    }
+  }
+  depending on (Shutdown) { Validate Moudi_shutdown; }
+}
+
+State Moudi_open {
+    depending on (Shutdown) { Validate Moudi_close; }
+
+    > Set Pump Speed 2 Volts
+ +1 > Pump Power On
+ +1 > MFC Moudi Flow Setpoint 2000 ccm
+ +1 > Moudi Valve On
+
+  { if ((MoudiMode == SWS_MOUDI_P_CTRL &&
+         moudi_close_P(convert(MS5607_P))) ||
+        (MoudiMode == SWS_MOUDI_I_CLOSE) ||
+        (MoudiMode == SWS_MOUDI_I_OPEN &&
+         convert(MS5607_P) > P_moudi_failsafe_cl)) {
+      Validate Moudi_close;
+    }
+  }
+}
+
+State Moudi_shutdown {}
