@@ -21,8 +21,9 @@ ADC_A {
 
 MS5607 {
   HBox { +-; Title: MS5607; -+ };
-  P: (MS5607_P,8) mbar;
-  T: (MS5607_T,7) C;
+  P:     (MS5607_P,8) mbar;
+  P_eff: (P_eff,8)    mbar;
+  T:     (MS5607_T,7) C;
 }
 
 Pump {

@@ -124,3 +124,6 @@ MMstat_t MMstat; Invalidate MMstat;
 
 uDACS_on_off PumpCmd; Invalidate PumpCmd;
 { PumpCmd = (PwrStat>>3) & 1; Validate PumpCmd; }
+
+MS5607_P_t P_eff; Invalidate P_eff;
+{ P_eff = Sim_P ? Sim_P : MS5607_P; }

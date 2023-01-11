@@ -11,3 +11,6 @@ SW_Variable: MoudiMode SW MOUDI
   SWS_MOUDI_P_CTRL    0   Pressure Control: reSet_it = 0; break;
   SWS_MOUDI_I_OPEN    1   Open: reSet_it = 0; break;
   SWS_MOUDI_I_CLOSE   2   Close: reSet_it = 0; break;
+
+SW_Variable: <uint16_t,Sim_P_t> Sim_P Set Simulated Pressure
+  : %d (Enter pressure in mbar) { $0 = $1 < 0 ? 0 : $1; }

@@ -13,6 +13,7 @@
 &SWTM
   : SW Status &SWStat { SWData.SWStat = $3; }
   : SW MOUDI &MoudiMode { SWData.MoudiMode = $3; }
+  : Set Simulated Pressure &Sim_P { SWData.Sim_P = $4; }
   ;
 &SWStat <unsigned char>
   : Altitude Takeoff { $0 = SWS_TAKEOFF; }
@@ -26,4 +27,7 @@
   : Set %d { $0 = $2; }
   : Open { $0 = SWS_MOUDI_I_OPEN; }
   : Close { $0 = SWS_MOUDI_I_CLOSE; }
+  ;
+&Sim_P <uint16_t>
+  : %d (Enter pressure in mbar) { $0 = $1 < 0 ? 0 : $1; }
   ;

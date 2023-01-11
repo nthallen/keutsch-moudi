@@ -114,9 +114,9 @@ State Moudi_close {
  +1 > Set Pump Speed 2 Volts
 
   { if ((MoudiMode == SWS_MOUDI_P_CTRL &&
-            moudi_open_P(convert(MS5607_P))) ||
+            moudi_open_P(P_eff)) ||
         (MoudiMode == SWS_MOUDI_I_OPEN &&
-            convert(MS5607_P) < P_moudi_failsafe_op)) {
+            P_eff < P_moudi_failsafe_op)) {
       Validate Moudi_open;
     }
   }
@@ -132,10 +132,10 @@ State Moudi_open {
  +1 > Moudi Valve On
 
   { if ((MoudiMode == SWS_MOUDI_P_CTRL &&
-         moudi_close_P(convert(MS5607_P))) ||
+         moudi_close_P(P_eff)) ||
         (MoudiMode == SWS_MOUDI_I_CLOSE) ||
         (MoudiMode == SWS_MOUDI_I_OPEN &&
-         convert(MS5607_P) > P_moudi_failsafe_cl)) {
+         P_eff > P_moudi_failsafe_cl)) {
       Validate Moudi_close;
     }
   }

@@ -5,6 +5,7 @@
 typedef struct __attribute__((__packed__)) {
   unsigned char SWStat;
   unsigned char MoudiMode;
+  uint16_t Sim_P;
 } SWData_t;
 extern SWData_t SWData;
 

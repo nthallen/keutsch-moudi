@@ -1,7 +1,8 @@
 tmcbase = base.tmc
 tmcbase = uDACS.tmc
 tmcbase = uDACS_A.tmc
-tmcbase = uDACS_A_conv.tmc
+
+extbase = uDACS_A_conv.tmc
 
 colbase = uDACS_col.tmc
 colbase = uDACS_A_col.tmc
@@ -25,10 +26,10 @@ IDISTRIB = doit
 
 Moudicol : -lsubbuspp
 Moudisrvr : -lsubbuspp uDACS_cmd.oui
-Moudidisp : Moudi.tbl
+Moudidisp : uDACS_A_conv.tmc Moudi.tbl
 IWG1disp : IWG1.tbl
-Moudialgo : Moudi.tma $swsbase
-UDPext : UDP.tmc UDP.cc UDPext.oui
+Moudialgo : uDACS_A_conv.tmc Moudi.tma $swsbase
+UDPext : uDACS_A_conv.tmc UDP.tmc UDP.cc UDPext.oui
 doit : Moudi.doit
 %%
 # This matches the current definitions in monarch dasio
