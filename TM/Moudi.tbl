@@ -41,6 +41,7 @@ TMbaseC {
   SWStat:   (SWStat,3);
   Fail:     (FailText,3);
   Mode:     (ModeText,3);
+  Moudi:    (MoudiMode,3);
   VGlue 0+1;
   [TMbase_times]
 }

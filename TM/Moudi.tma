@@ -53,13 +53,13 @@ Partition
 
 State ON_GROUND {
   { using_swp = 0; }
-  { if (using_swp || (convert(MS5607_P) > 0 && convert(MS5607_P) < P_ground_up))
+  { if (using_swp || (P_eff > 0 && P_eff < P_ground_up))
       Validate OFF_GROUND;
   }
 }
 
 State OFF_GROUND {
-  { if ((using_swp == SWS_LAND) || (!using_swp && convert(MS5607_P) > P_ground_dn)) {
+  { if ((using_swp == SWS_LAND) || (!using_swp && P_eff > P_ground_dn)) {
       Validate ON_GROUND;
     }
   }
