@@ -62,13 +62,13 @@ depending on (1 Hz) {
   /* if (POPS_Srvr == 2) status |= 3; */
   systime = system_time();
 
-  UDPcsv_status.set_col(3-2,status);
+  UDPcsv_status.set_col(3-2, status+10*MoudiMode);
   UDPcsv_status.set_col(4-2, MMstat);
   UDPcsv_status.set_col(5-2, text(MMFC_VolFlow));
   UDPcsv_status.set_col(6-2, PumpCmd);
   UDPcsv_status.set_col(7-2, text(PumpV));
   UDPcsv_status.set_col(8-2, text(PumpT));
-  UDPcsv_status.set_col(9-2, text(MS5607_P));
+  UDPcsv_status.set_col(9-2, text(P_eff));
   UDPcsv_status.set_col(10-2, text(MS5607_T));
   UDPcsv_status.transmit("MOUDI", systime); /* dtime() */
 
