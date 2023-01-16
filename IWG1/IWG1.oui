@@ -1,5 +1,5 @@
 <package> IWG1
-<include> msg
+<include> msg oui
 <follow> msg
 <include> <stdlib.h>
 
