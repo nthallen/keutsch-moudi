@@ -1,0 +1,15 @@
+ModuleDef UDPtxin [ ] {
+  Provide UDPtxin driver for GSE operations
+}
+
+mode (default) {
+  DISTRIB = @MODDIR@/../UDPtxin
+}
+
+%%
+.PHONY : clean-UDPtxin @MODDIR@/../UDPtxin
+@MODDIR@/../UDPtxin :
+	$(MAKE) --directory=@MODDIR@/..
+clean-dist : clean-UDPtxin
+clean-UDPtxin :
+	$(MAKE) --directory=@MODDIR@/.. clean

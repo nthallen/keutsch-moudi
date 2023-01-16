@@ -1,0 +1,29 @@
+
+%{
+/*
+This code should move into the UDPtxin Module
+  #include "UDPtxin.h"
+TM "Receive" MOUDI;
+
+TM typedef double UDPdrift_t { text "%6.1lf"; }
+TM 1 Hz UDPdrift_t UDPdrift;
+
+%{
+  const char *Moudi_stat_text(uint8_t x) {
+    switch (x) {
+      case 0: return "Pcontrl";
+      case 1: return "Iclosed";
+      case 2: return "Iopened";
+    }
+  }
+%}
+TM typedef uint8_t Moudi_stat_t { text "%7u" Moudi_stat_text(); }
+TM 1 Hz Moudi_stat_t Moudi_stat;
+
+TM 1 Hz UCHAR Inst_Status;
+
+
+Group MOUDI (UDPdrift, Moudi_stat, Inst_Status) {
+}
+*/
+%}
