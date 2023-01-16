@@ -25,11 +25,12 @@ Moudialgo.cc
 Moudialgooui.cc
 Moudialgo.o
 Moudialgooui.o
-UDPext.cc
-UDPextoui.cc
-UDPext.o
+UDPrxext.cc
+UDPrxextoui.cc
+UDPrxext.o
 UDP.o
-UDPextoui.o
+UDPrx.o
+UDPrxextoui.o
 doit.dep
 Moudicltnc.o
 Moudicltncoui.cc
@@ -53,7 +54,7 @@ Moudisrvr
 Moudidispnc
 IWG1dispnc
 Moudialgo
-UDPext
+UDPrxext
 doit
 Moudicltnc
 Moudiengext

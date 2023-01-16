@@ -1,8 +1,11 @@
 %{
   #include <time.h>
   #include "UDP.h"
+  #include "UDPrx.h"
   #include "dasio/tmctime.h"
-
+  
+  #define TM_CLIENT_CLASS UDPrxext_tm_client
+  
   int status_stale = -1;
   
   UDPcsv_file UDPcsv_status(10-1, "");

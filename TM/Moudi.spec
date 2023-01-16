@@ -29,7 +29,7 @@ Moudisrvr : -lsubbuspp uDACS_cmd.oui
 Moudidisp : uDACS_A_conv.tmc Moudi.tbl
 IWG1disp : IWG1.tbl
 Moudialgo : uDACS_A_conv.tmc Moudi.tma $swsbase
-UDPext : uDACS_A_conv.tmc UDP.tmc UDP.cc UDPext.oui
+UDPrxext : uDACS_A_conv.tmc UDP.tmc UDP.cc UDPrx.cc UDPext.oui
 doit : Moudi.doit
 %%
 # This matches the current definitions in monarch dasio

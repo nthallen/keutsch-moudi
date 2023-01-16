@@ -47,7 +47,7 @@ fi
   Launch      cmd      Moudisrvr -H srvr: -S:
   Launch      -        tmdf
   Launch      -        IWG1
-  Launch      -        UDPext
+  Launch      -        UDPrxext
 
 if [ -n "$RS485" ]; then
   Launch      -        alicat -a 1:MMFC -p $RS485
