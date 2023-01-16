@@ -1,0 +1,7 @@
+#display GSEdisp
+serin serin
+server cmd Mouditxsrvr -v
+#server - UDPio
+client [SI] Moudiclt
+memo
+batchfile interact

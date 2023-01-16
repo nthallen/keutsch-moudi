@@ -35,6 +35,7 @@ UDP.o
 UDPrx.o
 UDPrxextoui.o
 doit.dep
+GSEdoit.dep
 Moudicltnc.o
 Moudicltncoui.cc
 Moudicltncoui.o
@@ -60,5 +61,6 @@ IWG1dispnc
 Moudialgo
 UDPrxext
 doit
+GSEdoit
 Moudicltnc
 Moudiengext

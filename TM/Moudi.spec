@@ -33,6 +33,7 @@ IWG1disp : IWG1.tbl
 Moudialgo : uDACS_A_conv.tmc Moudi.tma $swsbase
 UDPrxext : uDACS_A_conv.tmc UDP.tmc UDP.cc UDPrx.cc UDPext.oui
 doit : Moudi.doit
+GSEdoit : GSE.doit
 %%
 # This matches the current definitions in monarch dasio
 # and is necessary to see addrinfo/getaddrinfo needed for

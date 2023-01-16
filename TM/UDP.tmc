@@ -28,7 +28,7 @@
 
   void UDPinit() {
     UDPbcast *UDPstatus =
-      new UDPbcast("10.6.1.255", "5100",1000); // ER-2 LAN
+      new UDPbcast("10.11.96.131", "7075",1000); // WB57 LAN
 //    UDPbcast UDP("10.245.83.127", "5100"); // Link LAN
 //    UDPbcast UDP("192.168.237.255", "5100"); // VMware private LAN
 
