@@ -1,3 +1,5 @@
+Transmitting
+
 SW_Variable: SWStat SW Status
   SWS_TAKEOFF          1 Altitude Takeoff:
     depending on (ON_GROUND) using_swp = SWStat; break;

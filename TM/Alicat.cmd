@@ -1,7 +1,7 @@
 %INTERFACE <Alicat>
 
 %{
-  #ifdef SERVER
+  #if defined(SERVER) && !defined(TRANSMITTING)
   void Alicat_set(int ID, float setpoint) {
     uint32_t rawset = *(uint32_t*)&setpoint;
     // WII:FF:AAAA:NN:DD:DD...
@@ -19,6 +19,6 @@
   #endif
 %}
 
-&command
+&^command
   : MFC Moudi Flow SetPoint %f (ccm) ccm * { Alicat_set(1, $5); }
   ;

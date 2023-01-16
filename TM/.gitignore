@@ -9,6 +9,9 @@ Moudicmd.h
 Moudisrvr.o
 Moudisrvroui.cc
 Moudisrvroui.o
+Mouditxsrvr.o
+Mouditxsrvroui.cc
+Mouditxsrvroui.o
 Mouditblnc.tmc
 Moudidispnc.cc
 Moudidispncoui.cc
@@ -51,6 +54,7 @@ IWG1tblnc.tmc.dep
 Makefile
 Moudicol
 Moudisrvr
+Mouditxsrvr
 Moudidispnc
 IWG1dispnc
 Moudialgo

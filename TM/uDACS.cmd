@@ -1,5 +1,5 @@
 %{
-  #ifdef SERVER
+  #if defined(SERVER) && !defined(TRANSMITTING)
   #include "subbuspp.h"
   #include "uDACS_cmd.h"
 
@@ -59,7 +59,7 @@
   #endif
 %}
 
-&command
+&^command
   : Fail Light &fail_on_off * { uDACS_fail($3); }
   : uDACS_A J7 &pumps_on_off * { uDACS_A_wr(0x30, 0+$3); }
   : uDACS_A J8 &pumps_on_off * { uDACS_A_wr(0x30, 2+$3); }

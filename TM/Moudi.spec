@@ -10,12 +10,13 @@ colbase = uDACS_A_col.tmc
 genuibase = Moudi.genui
 genuibase = uDACS.genui
 
+cmdbase = Moudi.cmd
 cmdbase = uDACS.cmd
 
 swsbase = Moudi.sws
 
 Module TMbase
-Module alicat src=alicat.txt
+Module alicat src=alicat.txt TX=^
 Module IWG1
 
 TGTDIR = /home/moudi
@@ -26,6 +27,7 @@ IDISTRIB = doit
 
 Moudicol : -lsubbuspp
 Moudisrvr : -lsubbuspp uDACS_cmd.oui
+Mouditxsrvr :
 Moudidisp : uDACS_A_conv.tmc Moudi.tbl
 IWG1disp : IWG1.tbl
 Moudialgo : uDACS_A_conv.tmc Moudi.tma $swsbase
