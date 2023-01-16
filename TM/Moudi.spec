@@ -23,7 +23,6 @@ TGTDIR = /home/moudi
 IGNORE = "*.o" "*.exe" "*.stackdump" Makefile
 DISTRIB = services interact runfile.flight
 DISTRIB = USB_ID.exp Rovers.txt
-IDISTRIB = doit
 
 Moudicol : -lsubbuspp
 Moudisrvr : -lsubbuspp uDACS_cmd.oui

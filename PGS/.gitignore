@@ -1,3 +1,4 @@
+doit.dep
 PGScmd.cc
 PGScmd.dat
 PGScmd.h
@@ -20,6 +21,11 @@ PGSengextoui.cc
 PGSengext.o
 PGSengextoui.o
 *.err
+*.o
+*.exe
+*.stackdump
+Makefile
+doit
 PGScltnc
 PGSsrvr
 PGScol

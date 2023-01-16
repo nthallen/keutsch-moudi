@@ -1,0 +1,6 @@
+#display PGSdisp
+serin serin
+server cmd Mouditxsrvr -v
+server - UDPtxin
+client [SI] Moudiclt
+memo

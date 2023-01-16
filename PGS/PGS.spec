@@ -5,7 +5,11 @@ Module TMbase
 Module UDPtxin
 
 TGTDIR = /home/moudi/PGS
-DISTRIB = ../Mouditxsrvr ../Moudicltnc
+IGNORE = "*.o" "*.exe" "*.stackdump" Makefile
+DISTRIB = services
+DISTRIB = ../TM/Mouditxsrvr ../TM/Moudicltnc
+
+doit : PGS.doit
 
 %%
 # This matches the current definitions in monarch dasio
