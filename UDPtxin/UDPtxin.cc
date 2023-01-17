@@ -1,11 +1,13 @@
 #include "dasio/loop.h"
 #include "UDPtxin_int.h"
+#include "UDPtxin.h"
 #include "oui.h"
 #include "nl.h"
 
 using namespace DAS_IO;
 
 bool UDPext_debug;
+UDPtxin_t UDPtxin;
 
 int main(int argc, char **argv) {
   oui_init_options(argc, argv);

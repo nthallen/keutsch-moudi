@@ -1,5 +1,5 @@
-#ifndef UDPTXIN_H_INCLUDED
-#define UDPTXIN_H_INCLUDED
+#ifndef UDPTXIN_INT_H_INCLUDED
+#define UDPTXIN_INT_H_INCLUDED
 #include "dasio/cmd_reader.h"
 #include "UDP.h"
 

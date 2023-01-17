@@ -21,6 +21,8 @@ PGSengextoui.cc
 PGSengext.o
 PGSengextoui.o
 *.err
+UDPtxin.tmc
+UDPtxin_col.tmc
 *.o
 *.exe
 *.stackdump

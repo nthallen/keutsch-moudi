@@ -1,29 +1,58 @@
-
-%{
-/*
-This code should move into the UDPtxin Module
-  #include "UDPtxin.h"
-TM "Receive" MOUDI;
+TM "Receive" UDPtxin 0;
 
 TM typedef double UDPdrift_t { text "%6.1lf"; }
 TM 1 Hz UDPdrift_t UDPdrift;
 
 %{
-  const char *Moudi_stat_text(uint8_t x) {
+  const char *AlgoS_text(uint8_t x) {
     switch (x) {
       case 0: return "Pcontrl";
       case 1: return "Iclosed";
       case 2: return "Iopened";
+      default: return "*******";
     }
   }
+  const char *MMstat_text(uint8_t x) {
+    switch (x) {
+      case 0:  return "------";
+      case 1:  return "Opened";
+      case 2:  return "Opend2";
+      case 3:  return "Closed";
+      default: return "******";
+    }
+  }
+  #define uDACS_on_off_text(x) ((x) ? " on" : "off")
 %}
-TM typedef uint8_t Moudi_stat_t { text "%7u" Moudi_stat_text(); }
-TM 1 Hz Moudi_stat_t Moudi_stat;
+TM 1 Hz UCHAR InstS;
+TM typedef uint8_t AlgoS_t { text "%7u" AlgoS_text(); }
+TM 1 Hz AlgoS_t AlgoS;
+TM typedef uint8_t MMstat_t { text "%6u" MMstat_text(); }
+TM 1 Hz MMstat_t ValveS;
+TM typedef uint16_t Flow_t { text "%5u"; }
+TM 1 Hz Flow_t MoudiFlow;
+TM typedef uint8_t uDACS_on_off { text "%3u" uDACS_on_off_text(); }
+TM 1 Hz uDACS_on_off PumpS;
+TM typedef uint16_t PumpV_t { text "%4.2lf"; }
+TM 1 Hz PumpV_t PumpV;
+TM typedef int16_t PumpT_t { text "%5.1lf"; }
+TM 1 Hz PumpT_t PumpT;
+TM typedef float InstP_t { text "%8.3lf"; }
+TM 1 Hz InstP_t InstP;
+TM typedef float InstT_t { text "%7.3lf"; }
+TM 1 Hz InstT_t InstT;
+TM 1 Hz UCHAR UDPtxin_Stale;
 
-TM 1 Hz UCHAR Inst_Status;
-
-
-Group MOUDI (UDPdrift, Moudi_stat, Inst_Status) {
+Group UDPtxin (UDPdrift, InstS, AlgoS, ValveS, MoudiFlow,
+      PumpS, PumpV, PumpT, InstP, InstT, UDPtxin_stale) {
+  UDPdrift = UDPtxin.Time - dtime();
+  InstS = UDPtxin.InstS;
+  AlgoS = UDPtxin.AlgoS;
+  ValveS = UDPtxin.ValveS;
+  MoudiFlow = UDPtxin.MoudiFlow;
+  PumpS = UDPtxin.PumpS;
+  PumpV = UDPtxin.PumpV;
+  PumpT = UDPtxin.PumpT;
+  InstP = UDPtxin.InstP;
+  InstT = UDPtxin.InstT;
+  UDPtxin_Stale = UDPtxin_obj->Stale(255);
 }
-*/
-%}
