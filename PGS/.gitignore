@@ -1,3 +1,8 @@
+PGStblnc.tmc
+PGSdispnc.cc
+PGSdispncoui.cc
+PGSdispnc.o
+PGSdispncoui.o
 doit.dep
 PGScmd.cc
 PGScmd.dat
@@ -20,13 +25,13 @@ PGSengext.cc
 PGSengextoui.cc
 PGSengext.o
 PGSengextoui.o
+PGStblnc.tmc.dep
 *.err
-UDPtxin.tmc
-UDPtxin_col.tmc
 *.o
 *.exe
 *.stackdump
 Makefile
+PGSdispnc
 doit
 PGScltnc
 PGSsrvr

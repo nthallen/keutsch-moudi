@@ -1,0 +1,16 @@
+Input "TMbase.tbl";
+Input "UDPtxin.tbl";
+
+{ HBox {
+    |+;
+    { [Moudi];
+      [Valve];
+      [Pump];
+    }; |+; {
+      [Ambient];
+      [TMbaseB];
+    };
+    |+;
+  };
+  -
+}

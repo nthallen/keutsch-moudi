@@ -1,0 +1,24 @@
+Moudi {
+  HBox { +-; Title: MOUDI; -+ };
+  InstS: (InstS,3);
+  AlgoS: (AlgoS,7);
+  Drift: (UDPdrift,6);
+  Stale: (UDPtxin_Stale,3);
+}
+Valve {
+  HBox { +-; Title: Valve; -+ };
+  ValveS: (ValveS,6);
+  Flow:   (MoudiFlow,5) ccm;
+}
+
+Pump {
+  HBox { +-; Title: Pump; -+ };
+  PumpS: (PumpS,3);
+  PumpT: (PumpT,5) C;
+}
+
+Ambient {
+  HBox { +-; Title: Ambient; -+ };
+  P: (InstP,8) mbar;
+  T: (InstT,7) C;
+}

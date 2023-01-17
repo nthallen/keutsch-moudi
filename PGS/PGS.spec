@@ -9,6 +9,7 @@ IGNORE = "*.o" "*.exe" "*.stackdump" Makefile
 DISTRIB = services
 DISTRIB = ../TM/Mouditxsrvr ../TM/Moudicltnc
 
+PGSdisp : PGS.tbl
 doit : PGS.doit
 
 %%

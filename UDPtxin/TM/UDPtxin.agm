@@ -6,9 +6,9 @@ mode (default) {
   tmcbase = UDPtxin.tmc:UDPtxin.tmc.in
   colbase = UDPtxin_col.tmc:UDPtxin_col.tmc.in
   genuibase = UDPtxin.genui
+  - : UDPtxin.tbl:UDPtxin.tbl.in
   DISTRIB = @MODDIR@/../UDPtxin
   CPPFLAGS = -I @MODDIR@/..
-  IGNORE = UDPtxin.tmc UDPtxin_col.tmc
 }
 
 %%
