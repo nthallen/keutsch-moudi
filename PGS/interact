@@ -7,6 +7,4 @@
   Launch      cmd      Mouditxsrvr -H srvr: -S:
   Launch      -        tmdf
   Launch      -        UDPtxin
-# Creating a simple algo to start telemetry may be tricky
-# Have to build it in src/TM
-# Launch      -TMC-    PGSalgo -v
+  Launch      -TMC-    PGSalgo -v

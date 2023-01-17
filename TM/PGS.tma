@@ -1,0 +1,3 @@
+state Init {
+  > Telemetry Start
+}

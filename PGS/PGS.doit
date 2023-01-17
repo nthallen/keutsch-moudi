@@ -1,3 +1,4 @@
 display PGSdisp
 client Moudiclt
+extraction [!SI] scopexjsonext -n json
 memo

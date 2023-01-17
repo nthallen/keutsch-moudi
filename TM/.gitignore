@@ -28,6 +28,11 @@ Moudialgo.cc
 Moudialgooui.cc
 Moudialgo.o
 Moudialgooui.o
+PGSalgoa.tmc
+PGSalgo.cc
+PGSalgooui.cc
+PGSalgo.o
+PGSalgooui.o
 UDPrxext.cc
 UDPrxextoui.cc
 UDPrxext.o
@@ -35,7 +40,6 @@ UDP.o
 UDPrx.o
 UDPrxextoui.o
 doit.dep
-GSEdoit.dep
 Moudicltnc.o
 Moudicltncoui.cc
 Moudicltncoui.o
@@ -59,8 +63,8 @@ Mouditxsrvr
 Moudidispnc
 IWG1dispnc
 Moudialgo
+PGSalgo
 UDPrxext
 doit
-GSEdoit
 Moudicltnc
 Moudiengext
