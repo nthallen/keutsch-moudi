@@ -115,7 +115,7 @@ void UDPrx_TM::Bind(const char *port) {
     msg(MSG_FATAL, "Invalid port in UDPrx_TM: 0" );
 
 	memset(&hints, 0, sizeof(hints));	
-	hints.ai_family = AF_UNSPEC;		// don't care IPv4 of v6
+	hints.ai_family = AF_INET;		// IPv4
 	hints.ai_socktype = SOCK_DGRAM;
 	hints.ai_flags = AI_PASSIVE;
 	

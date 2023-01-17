@@ -22,6 +22,7 @@ bool UDPrx::protocol_input() {
   // Could check for CMDREP_QUIT, but might be better to
   // let the TM_client take us out
   ci_sendcmd(Cmd_Send, (const char *)buf);
+  report_ok(nc);
   return false;
 }
 

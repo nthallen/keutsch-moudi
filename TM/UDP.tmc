@@ -29,7 +29,7 @@
   void UDPinit() {
     UDPbcast *UDPstatus =
 #ifdef LAB_TEST_CAMBRIDGE
-      new UDPbcast("10.245.83.73", "7075");
+      new UDPbcast("10.245.83.14", "7075");
 #elif LAB_TEST_FIELD
       new UDPbcast("10.11.96.150", "7075");
 #else
