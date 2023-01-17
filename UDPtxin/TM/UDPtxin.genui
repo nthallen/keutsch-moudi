@@ -1,10 +1,10 @@
  1 UDPtxin_Stale Status Stale
  1 UDPdrift Status Drift
  1 InstS    Status Status
- 1 AlgoS    Status Algo
- 1 ValveS   Status Valve
+ 1 AlgoS    Status Algo %.0lf
+ 1 ValveS   Status Valve %.0lf
  1 MoudiFlow Analog Flow
- 1 PumpS     Status Pump
+ 1 PumpS     Status Pump %.0lf
  1 PumpT     Analog Temp
  1 InstP     Analog Pres
  1 InstT     Analog AmbT

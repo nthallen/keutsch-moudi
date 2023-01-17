@@ -32,6 +32,7 @@ IWG1disp : IWG1.tbl
 Moudialgo : uDACS_A_conv.tmc Moudi.tma $swsbase
 PGSalgo : PGS.tma
 UDPrxext : uDACS_A_conv.tmc UDP.tmc UDP.cc UDPrx.cc UDPext.oui
+Moudijsonext : $extbase $genuibase
 doit : Moudi.doit
 %%
 # This matches the current definitions in monarch dasio

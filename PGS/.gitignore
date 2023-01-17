@@ -3,6 +3,13 @@ PGSdispnc.cc
 PGSdispncoui.cc
 PGSdispnc.o
 PGSdispncoui.o
+PGSjsonext.cdf
+PGSjsonextcdf.oui
+PGSjsonextcdf.tmc
+PGSjsonext.cc
+PGSjsonextoui.cc
+PGSjsonext.o
+PGSjsonextoui.o
 doit.dep
 PGScmd.cc
 PGScmd.dat
@@ -32,6 +39,7 @@ PGStblnc.tmc.dep
 *.stackdump
 Makefile
 PGSdispnc
+PGSjsonext
 doit
 PGScltnc
 PGSsrvr

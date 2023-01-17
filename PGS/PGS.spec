@@ -10,6 +10,7 @@ DISTRIB = services interact
 DISTRIB = ../TM/Mouditxsrvr ../TM/Moudicltnc ../TM/PGSalgo
 
 PGSdisp : PGS.tbl
+PGSjsonext : $extbase $genuibase
 doit : PGS.doit
 
 %%

@@ -39,6 +39,13 @@ UDPrxext.o
 UDP.o
 UDPrx.o
 UDPrxextoui.o
+Moudijsonext.cdf
+Moudijsonextcdf.oui
+Moudijsonextcdf.tmc
+Moudijsonext.cc
+Moudijsonextoui.cc
+Moudijsonext.o
+Moudijsonextoui.o
 doit.dep
 Moudicltnc.o
 Moudicltncoui.cc
@@ -65,6 +72,7 @@ IWG1dispnc
 Moudialgo
 PGSalgo
 UDPrxext
+Moudijsonext
 doit
 Moudicltnc
 Moudiengext

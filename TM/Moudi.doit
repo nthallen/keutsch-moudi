@@ -1,6 +1,6 @@
 display Moudidisp
 display IWG1disp
 client Moudiclt
-extraction [!SI] scopexjsonext -n json
+extraction [!SI] Moudijsonext -n json
 memo
 batchfile interact
