@@ -17,7 +17,14 @@ UDPtxin_t UDPtxin;
 int main(int argc, char **argv) {
   oui_init_options(argc, argv);
   Loop ELoop;
-  CR_UDPtx *CRxUtx = new CR_UDPtx("10.15.101.131", "7075");
+  CR_UDPtx *CRxUtx =
+#ifdef LAB_TEST_CAMBRIDGE
+    new CR_UDPtx("10.245.83.127", "7075");
+#elif LAB_TEST_FIELD
+    new CR_UDPtx("10.11.96.255", "7075");
+#else
+    new CR_UDPtx("10.15.101.131", "7075");
+#endif
   CRxUtx->connect();
   ELoop.add_child(CRxUtx);
   

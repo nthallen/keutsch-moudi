@@ -28,7 +28,14 @@
 
   void UDPinit() {
     UDPbcast *UDPstatus =
-      new UDPbcast("10.11.96.131", "7075",1000); // WB57 LAN
+#ifdef LAB_TEST_CAMBRIDGE
+      new UDPbcast("10.245.83.73", "7075");
+#elif LAB_TEST_FIELD
+      new UDPbcast("10.11.96.150", "7075");
+#else
+      new UDPbcast("10.11.96.131", "7075");
+#endif
+//    new UDPbcast("10.11.96.131", "7075",1000); // WB57 LAN
 //    UDPbcast UDP("10.245.83.127", "5100"); // Link LAN
 //    UDPbcast UDP("192.168.237.255", "5100"); // VMware private LAN
 
