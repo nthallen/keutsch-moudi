@@ -1,7 +1,3 @@
-#display PGSdisp
-serin serin
-server cmd Mouditxsrvr -v
-server - UDPtxin
 display PGSdisp
-client [SI] Moudiclt
+client Moudiclt
 memo

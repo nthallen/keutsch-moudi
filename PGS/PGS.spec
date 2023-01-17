@@ -6,7 +6,7 @@ Module UDPtxin
 
 TGTDIR = /home/moudi/PGS
 IGNORE = "*.o" "*.exe" "*.stackdump" Makefile
-DISTRIB = services
+DISTRIB = services interact
 DISTRIB = ../TM/Mouditxsrvr ../TM/Moudicltnc
 
 PGSdisp : PGS.tbl

@@ -32,9 +32,9 @@ TM typedef uint16_t Flow_t { text "%5u"; }
 TM 1 Hz Flow_t MoudiFlow;
 TM typedef uint8_t uDACS_on_off { text "%3u" uDACS_on_off_text(); }
 TM 1 Hz uDACS_on_off PumpS;
-TM typedef uint16_t PumpV_t { text "%4.2lf"; }
+TM typedef float PumpV_t { text "%4.2lf"; }
 TM 1 Hz PumpV_t PumpV;
-TM typedef int16_t PumpT_t { text "%5.1lf"; }
+TM typedef float PumpT_t { text "%5.1lf"; }
 TM 1 Hz PumpT_t PumpT;
 TM typedef float InstP_t { text "%8.3lf"; }
 TM 1 Hz InstP_t InstP;

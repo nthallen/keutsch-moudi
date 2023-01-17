@@ -1,0 +1,12 @@
+  Launch      memo     memo -o $Experiment.log -l4
+              [ -z "$launch_err" ] &&
+                msg -nflight "Running script interact"
+  Launch      tm_bfr   bfr -H bfr: -S:
+  Launch      -TMC-    lgr -N `mlf_find LOG` -n lgr
+  Launch      tm_gen   PGScol
+  Launch      cmd      Mouditxsrvr -H srvr: -S:
+  Launch      -        tmdf
+  Launch      -        UDPtxin
+# Creating a simple algo to start telemetry may be tricky
+# Have to build it in src/TM
+# Launch      -TMC-    PGSalgo -v
