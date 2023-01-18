@@ -6,5 +6,5 @@
   Launch      tm_gen   PGScol
   Launch      cmd      Mouditxsrvr -H srvr: -S:
   Launch      -        tmdf
-  Launch      -        UDPtxin
+  Launch      -        UDPtxin -v
   Launch      -TMC-    PGSalgo -v

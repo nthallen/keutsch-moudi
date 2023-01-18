@@ -4,8 +4,8 @@ TM "Receive" UDPtxin 0;
   const char *AlgoS_text(uint8_t x) {
     switch (x) {
       case 0: return "Pcontrl";
-      case 1: return "Iclosed";
-      case 2: return "Iopened";
+      case 1: return "Iopened";
+      case 2: return "Iclosed";
       default: return "*******";
     }
   }
@@ -28,7 +28,7 @@ TM typedef uint8_t AlgoS_t { text "%7u" AlgoS_text(); }
 TM 1 Hz AlgoS_t AlgoS;
 TM typedef uint8_t MMstat_t { text "%6u" MMstat_text(); }
 TM 1 Hz MMstat_t ValveS;
-TM typedef uint16_t Flow_t { text "%5u"; }
+TM typedef float Flow_t { text "%6.1lf"; }
 TM 1 Hz Flow_t MoudiFlow;
 TM typedef uint8_t uDACS_on_off { text "%3u" uDACS_on_off_text(); }
 TM 1 Hz uDACS_on_off PumpS;

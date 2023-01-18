@@ -8,7 +8,7 @@ Moudi {
 Valve {
   HBox { +-; Title: Valve; -+ };
   ValveS: (ValveS,6);
-  Flow:   (MoudiFlow,5) ccm;
+  Flow:   (MoudiFlow,6) ccm;
 }
 
 Pump {

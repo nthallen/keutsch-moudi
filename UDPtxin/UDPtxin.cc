@@ -2,6 +2,7 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <string.h>
+#include <stdlib.h>
 #include "dasio/loop.h"
 #include "UDPtxin_int.h"
 #include "UDPtxin.h"
@@ -89,7 +90,7 @@ bool UDPrx_TM::protocol_input() {
       not_ISO8601(UDPtxin.Time) || not_str( ",", 1) ||
       not_uint16(status) || not_str(",", 1) ||
       not_uint8(UDPtxin.ValveS) || not_str( ",", 1) ||
-      not_uint16(UDPtxin.MoudiFlow) || not_str( ",", 1) ||
+      not_float(UDPtxin.MoudiFlow) || not_str( ",", 1) ||
       not_uint8(UDPtxin.PumpS) || not_str( ",", 1) ||
       not_float(UDPtxin.PumpV) || not_str( ",", 1) ||
       not_float(UDPtxin.PumpT) || not_str( ",", 1) ||

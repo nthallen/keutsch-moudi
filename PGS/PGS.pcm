@@ -1,12 +1,12 @@
 
 --------Frame Statistics-----------
 Major Frame: 1 minor frames, 1 Hz
-Minor Frame: 45 bytes, 1 Hz
+Minor Frame: 47 bytes, 1 Hz
 Effective Frame Dimensions:
-  1 Rows 45 Columns
+  1 Rows 47 Columns
   1 rows/sec
-  360 bits/sec
-  Data:  328 bits/sec  91 %
+  376 bits/sec
+  Data:  344 bits/sec  91 %
   Synch: 32 bits/sec  9 %
   Empty: 0 bits/sec  0 %
 -------End of Frame Statistics-----
@@ -14,22 +14,22 @@ Effective Frame Dimensions:
 
 --------PCM Definition-------------
 1/1 Hz 2 bytes Datum MFCtr (1,0,0,2)
-1/1 Hz 31 bytes Group UDPtxin (1,0,2,31)
+1/1 Hz 33 bytes Group UDPtxin (1,0,2,33)
 1/1 Hz 1 bytes Member UDPtxin_Stale (1,0,2,1)
 1/1 Hz 4 bytes Member InstT (1,0,3,4)
 1/1 Hz 4 bytes Member InstP (1,0,7,4)
 1/1 Hz 4 bytes Member PumpT (1,0,11,4)
 1/1 Hz 4 bytes Member PumpV (1,0,15,4)
 1/1 Hz 1 bytes Member PumpS (1,0,19,1)
-1/1 Hz 2 bytes Member MoudiFlow (1,0,20,2)
-1/1 Hz 1 bytes Member ValveS (1,0,22,1)
-1/1 Hz 1 bytes Member AlgoS (1,0,23,1)
-1/1 Hz 1 bytes Member InstS (1,0,24,1)
-1/1 Hz 8 bytes Member UDPdrift (1,0,25,8)
-1/1 Hz 4 bytes Datum SysTDrift (1,0,33,4)
-1/1 Hz 2 bytes Datum CPU_Pct (1,0,37,2)
-1/1 Hz 2 bytes Datum Disk (1,0,39,2)
-1/1 Hz 2 bytes Datum memused (1,0,41,2)
-1/1 Hz 2 bytes Datum Synch (1,0,43,2)
+1/1 Hz 4 bytes Member MoudiFlow (1,0,20,4)
+1/1 Hz 1 bytes Member ValveS (1,0,24,1)
+1/1 Hz 1 bytes Member AlgoS (1,0,25,1)
+1/1 Hz 1 bytes Member InstS (1,0,26,1)
+1/1 Hz 8 bytes Member UDPdrift (1,0,27,8)
+1/1 Hz 4 bytes Datum SysTDrift (1,0,35,4)
+1/1 Hz 2 bytes Datum CPU_Pct (1,0,39,2)
+1/1 Hz 2 bytes Datum Disk (1,0,41,2)
+1/1 Hz 2 bytes Datum memused (1,0,43,2)
+1/1 Hz 2 bytes Datum Synch (1,0,45,2)
 -------End of PCM Definition-------
 

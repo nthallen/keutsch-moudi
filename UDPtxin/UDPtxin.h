@@ -8,7 +8,7 @@ typedef struct {
   float PumpT; // %5.1lf
   float InstP; // %8.3lf
   float InstT; // %7.3lf
-  uint16_t MoudiFlow;
+  float MoudiFlow;
   uint8_t InstS;
   uint8_t AlgoS;
   uint8_t ValveS;
