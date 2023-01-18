@@ -7,6 +7,7 @@ SW_Variable: SWStat SW Status
     depending on (OFF_GROUND) using_swp = SWStat; break;
 
   SWS_TIME_WARP       253 Time Warp:  break;
+  SWS_RESTART         254 Restart:    Validate Restart; break;
   SWS_SHUTDOWN        255 Shutdown:   Validate Shutdown; break;
 
 SW_Variable: MoudiMode SW MOUDI

@@ -12,6 +12,11 @@ State Startup {
   depending on (ON_GROUND) { Validate Shutdown; }
 }
 
+State Restart {
+      > Create Restart File
+   +3 > Quit
+}
+
 State Shutdown {
       Hold until valid (Moudi_shutdown) or 2:00
       else {

@@ -48,7 +48,7 @@ if [ -n "$uDACS_A" ]; then
     wait $jobs
   fi
 else
-  flight_mode=no
+  flight_mode=yes
 fi
 
 if [ $flight_mode = yes ]; then
