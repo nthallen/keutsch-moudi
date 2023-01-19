@@ -28,10 +28,13 @@
 
   void UDPinit() {
     UDPbcast *UDPstatus =
+    // This is the IP to target the GSE. NASA will broadcast on
+    // the PGSS, but we can't broadcast if we're on the same
+    // subnet as the flight computer.
 #ifdef LAB_TEST_CAMBRIDGE
       new UDPbcast("10.245.83.14", "7075");
 #elif LAB_TEST_FIELD
-      new UDPbcast("10.11.96.150", "7075");
+      new UDPbcast("10.11.96.151", "7075");
 #else
       new UDPbcast("10.11.96.131", "7075");
 #endif

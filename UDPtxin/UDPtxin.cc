@@ -19,11 +19,18 @@ int main(int argc, char **argv) {
   oui_init_options(argc, argv);
   Loop ELoop;
   CR_UDPtx *CRxUtx =
+    // This is the IP to send commands to the instrument
+    // Instrument will receive via broadcast, but broadcasting
+    // doesn't work well when we are trying to receive on the
+    // same port number, so go with fixed IP.
 #ifdef LAB_TEST_CAMBRIDGE
-    new CR_UDPtx("10.245.83.127", "7075");
+    // Direct to moudi Cambridge lab IP
+    new CR_UDPtx("10.245.83.73", "7075");
 #elif LAB_TEST_FIELD
-    new CR_UDPtx("10.11.96.255", "7075");
+    // Direct to moudi flight IP
+    new CR_UDPtx("10.11.96.150", "7075");
 #else
+    // PGSS uplink system
     new CR_UDPtx("10.15.101.131", "7075");
 #endif
   CRxUtx->connect();
@@ -65,7 +72,7 @@ CR_UDPtx::~CR_UDPtx() {
  * Receives commands from txsrvr and forwards them to a UDP address
  */
 bool CR_UDPtx::app_input() {
-  if (nc >= 1 && buf[0] == 'Q' && buf[1] == '\0') {
+  if (nc >= 1 && buf[0] == 'Q' && buf[1] == '\n') {
     return true;
   }
   msg(0, "Relaying: %s", buf);

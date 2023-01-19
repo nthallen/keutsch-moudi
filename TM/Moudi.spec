@@ -44,4 +44,4 @@ doit : Moudi.doit
 #   (aircraft w/o the aircraft sat connections
 # Define neither for flight mode operation
 # The same change also needs to be made in src/PGS/Makefile
-CXXFLAGS=-Wall -g -D_POSIX_C_SOURCE=200809L -DLAB_TEST_CAMBRIDGE
+CXXFLAGS=-Wall -g -D_POSIX_C_SOURCE=200809L
