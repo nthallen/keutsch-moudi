@@ -32,7 +32,9 @@
     // the PGSS, but we can't broadcast if we're on the same
     // subnet as the flight computer.
 #ifdef LAB_TEST_CAMBRIDGE
-      new UDPbcast("10.245.83.14", "7075");
+      // new UDPbcast("10.245.83.14", "7075"); // Nort's laptop
+      new UDPbcast("10.245.83.18", "7075"); // XPS
+      // new UDPbcast("10.245.83.64", "7075"); // Nort's docking station
 #elif LAB_TEST_FIELD
       new UDPbcast("10.11.96.151", "7075");
 #else
