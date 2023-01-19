@@ -1,3 +1,6 @@
+# Delay before probing serial devices. This will also give
+# time for time to synch.
+sleep 10
 
 RS485=
 uDACS_A=
@@ -52,7 +55,6 @@ else
 fi
 
 if [ $flight_mode = yes ]; then
-  sleep 10
   Launch      tm_bfr   bfr -H bfr: -S:
   Launch      -TMC-    lgr -N `mlf_find LOG` -n lgr
   Launch      tm_gen   Moudicol
