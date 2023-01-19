@@ -7,4 +7,4 @@
   Launch      cmd      Mouditxsrvr -H srvr: -S:
   Launch      -        tmdf
   Launch      -        UDPtxin -v
-  Launch      -TMC-    PGSalgo -v
+                       monarch_cmd "Telemetry Start"
