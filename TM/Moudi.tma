@@ -108,6 +108,7 @@ State Moudi_init {
 }
 
 State Moudi_close {
+    Validate Pump_Speed_Idle;
     > Moudi Valve off
     > MFC Moudi Flow Setpoint 0 ccm
  +1 > Pump Power Off
@@ -130,6 +131,7 @@ State Moudi_open {
  +1 > Pump Power On
  +1 > MFC Moudi Flow Setpoint 2000 ccm
  +1 > Moudi Valve On
+    Validate Pump_Speed_Init;
 
   { if ((MoudiMode == SWS_MOUDI_P_CTRL &&
          moudi_close_P(P_eff)) ||
@@ -142,3 +144,45 @@ State Moudi_open {
 }
 
 State Moudi_shutdown {}
+
+# -----------------------------------------------------------------------------
+# Partition 4: Pump Speed Monitor
+# -----------------------------------------------------------------------------
+Partition
+
+%{
+  #include "dasio/cmd_writer.h"
+  double PS_flow_sum;
+  double PS_flow_mean;
+  int PS_flow_count;
+%}
+
+State Pump_Speed_Idle {}
+
+State Pump_Speed_Init {
+      { PS_flow_count = 0;
+        PS_flow_sum = 0.;
+        PS_flow_mean = 0.;
+      }
+   +5 Validate Pump_Speed_Monitor;
+}
+
+State Pump_Speed_Monitor NoLog {
+      { PS_flow_sum += MMFC_VolFlow;
+        PS_flow_count++;
+      }
+  +60 { PS_flow_mean = PS_flow_sum/PS_flow_count;
+        if (PS_flow_mean < 1800. && MMFC_Set < 4.9) {
+          double new_set;
+          new_set = MMFC_Set + 0.5;
+          if (new_set > 5.0) new_set = 5.0;
+          msg(0, "Mean flow is %.1lf ccm: Increasing Pump V to %.1lf",
+              PS_flow_mean, new_set);
+          ci_sendfcmd(Cmd_Send,
+            "Set Pump Speed %.1lf Volts\n", new_set);
+        }
+        PS_flow_sum = 0;
+        PS_flow_count = 0;
+        Validate Pump_Speed_Monitor;
+      }
+}
