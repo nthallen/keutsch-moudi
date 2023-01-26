@@ -67,6 +67,6 @@ if [ -n "$RS485" ]; then
   Launch      -        alicat -a 1:MMFC -p $RS485
 fi
 
-  Launch      -TMC-    Moudialgo -v
+  Launch      -TMC-    Moudialgo
 
 fi
