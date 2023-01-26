@@ -172,9 +172,9 @@ State Pump_Speed_Monitor NoLog {
         PS_flow_count++;
       }
   +60 { PS_flow_mean = PS_flow_sum/PS_flow_count;
-        if (PS_flow_mean < 1800. && convert(MMFC_Set) < 4.9) {
+        if (PS_flow_mean < 1800. && convert(PumpV) < 4.9) {
           double new_set;
-          new_set = convert(MMFC_Set) + 0.5;
+          new_set = convert(PumpV) + 0.5;
           if (new_set > 5.0) new_set = 5.0;
           msg(0, "Mean flow is %.1lf ccm: Increasing Pump V to %.1lf",
               PS_flow_mean, new_set);
