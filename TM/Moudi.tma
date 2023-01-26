@@ -17,7 +17,7 @@ State Shutdown {
       else {
         msg(2, "Timed out waiting for MOUDI to shutdown");
       }
-  +1  > Fail Light On
+  +5  > Fail Light On
       > Quit
 }
 
