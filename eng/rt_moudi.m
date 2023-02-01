@@ -23,7 +23,7 @@ dfs.plot('dacsaais','label','AI Stat','vars',{'uDACS_A_status'});
 dfs.plot('dacsat','label','Temps','vars',{'PumpT','RPi_T','Amb_T','ValveT','PlateT'});
 dfs.plot('dacsaain','label','AI N','vars',{'uDACS_A_N'});
 dfs.plot('ms', 'label', 'MS5607', 'plots', {'msp','mst'});
-dfs.plot('msp','label','P','vars',{'MS5607_P'});
+dfs.plot('msp','label','P','vars',{'MS5607_P','P_eff'});
 dfs.plot('mst','label','T','vars',{'MS5607_T'});
 dfs.plot('p', 'label', 'Pump', 'plots', {'pt','ps','ppv'});
 dfs.plot('pt','label','Temps','vars',{'PumpT'});

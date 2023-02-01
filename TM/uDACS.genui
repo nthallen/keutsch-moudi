@@ -1,6 +1,7 @@
   1 Fail:FailMode:0 uDACS_A Status %.0lf
   1 Mode:FailMode:4 uDACS_A Status %.0lf
   1 MS5607_P MS5607 P
+  1 P_eff    MS5607 P
   1 MS5607_T MS5607 T
 # 1 uDACS_A_VSet0 uDACS_A DAC
 # 1 uDACS_A_VSet1 uDACS_A DAC
