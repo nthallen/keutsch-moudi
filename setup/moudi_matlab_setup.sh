@@ -67,6 +67,11 @@ getrun_data_funcfile=$moudi_eng_path/MOUDI_DATA_DIR.m
 getrun_startup=MOUDI_startup
 EOF
 
+cat >~/.monarch/getrun.MPGS.config <<EOF
+getrun_data_funcfile=$moudi_eng_path/MOUDI_PGS_DATA_DIR.m
+getrun_startup=MPGS_startup
+EOF
+
 cat >$ofile <<EOF
 fprintf(1,'Running $scriptname to setup Matlab PATH for MOUDI\n');
 addpath('$arp_das_matlab_wrap_path');
@@ -74,7 +79,10 @@ addpath('$arp_das_matlab_ne_wrap_path');
 addpath('$arp_das_matlab_dfs_wrap_path');
 addpath('$moudi_eng_wrap_path');
 savepath;
+fprintf(1,'First: Identify the directory for MOUDI MATLAB data\n');
 update_ne_runsdir('MOUDI_DATA_DIR', '$moudi_eng_wrap_path');
+fprintf(1,'Next: Identify the directory for MOUDI MPGS MATLAB data\n');
+update_ne_runsdir('MOUDI_PGS_DATA_DIR', '$moudi_eng_wrap_path');
 delete $ofile
 fprintf(1,'MOUDI Setup complete\n');
 pause(2);
