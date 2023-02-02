@@ -62,6 +62,8 @@ else
 fi
 moudi_eng_wrap_path=`wrap_path $moudi_eng_path`
 
+mkdir ~/.monarch
+
 cat >~/.monarch/getrun.Moudi.config <<EOF
 getrun_data_funcfile=$moudi_eng_path/MOUDI_DATA_DIR.m
 getrun_startup=MOUDI_startup
