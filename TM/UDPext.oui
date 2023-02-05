@@ -1,6 +1,7 @@
 <package> UDPext
 <follow> msg
 <include> "UDP.h"
+<include> cmd_writer
 
 <opts> "D"
 <sort>
