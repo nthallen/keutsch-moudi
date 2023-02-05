@@ -25,13 +25,13 @@ int main(int argc, char **argv) {
     // same port number, so go with fixed IP.
 #ifdef LAB_TEST_CAMBRIDGE
     // Direct to moudi Cambridge lab IP
-    new CR_UDPtx("10.245.83.73", "9075");
+    new CR_UDPtx("10.245.83.73", "9094");
 #elif LAB_TEST_FIELD
     // Direct to moudi flight IP
-    new CR_UDPtx("10.11.96.150", "9075");
+    new CR_UDPtx("10.11.96.150", "9094");
 #else
     // PGSS uplink system
-    new CR_UDPtx("10.15.101.131", "9075");
+    new CR_UDPtx("10.15.101.131", "9094");
 #endif
   CRxUtx->connect();
   ELoop.add_child(CRxUtx);

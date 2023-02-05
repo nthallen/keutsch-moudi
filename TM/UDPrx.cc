@@ -9,7 +9,7 @@
 UDPrx::UDPrx()
     : Interface("UDPrx", 600 ) {
   // Set up UDP listener
-  Bind(9075); // As assigned for SABRE Mission
+  Bind(9094); // As assigned for SABRE Mission
   flags = Fl_Read;
   // setenv("TZ", "UTC0", 1); // Force UTC for mktime()
   if (cic_init())
