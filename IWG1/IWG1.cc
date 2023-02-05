@@ -49,12 +49,12 @@ IWG1_UDP::IWG1_UDP(TM_data_sndr *tm)
 
 bool IWG1_UDP::protocol_input() {
   if (not_str( "IWG1," ) ||
-      not_ISO8601(&IWG1.Time) || not_str( "Z,", 1) ||
+      not_ISO8601(IWG1.Time) || not_str( "Z,", 1) ||
       not_nfloat(&IWG1.Lat) || not_str(",", 1) ||
       not_nfloat(&IWG1.Lon) || not_str(",", 1) ||
       not_nfloat(&IWG1.GPS_MSL_Alt) || not_str(",", 1) ||
       not_nfloat(&IWG1.WGS_84_Alt) || not_str(",", 1) ||
-      not_nfloat(&IWG1.Press_Alt) || not_str(",", 1) ||
+      not_nifloat(&IWG1.Press_Alt) || not_str(",", 1) ||
       not_nfloat(&IWG1.Radar_Alt) || not_str(",", 1) ||
       not_nfloat(&IWG1.Grnd_Spd) || not_str(",", 1) ||
       not_nfloat(&IWG1.True_Airspeed) || not_str(",", 1) ||
@@ -90,7 +90,7 @@ bool IWG1_UDP::protocol_input() {
   report_ok(nc);
   return 0;
 }
-
+#ifdef OVERRIDE_ISO8601
 int IWG1_UDP::not_ndigits(int n, int &value) {
   int i = n;
   value = 0;
@@ -133,21 +133,25 @@ int IWG1_UDP::not_ISO8601(double *Time) {
   else *Time = (double)ltime + secs;
   return 0;
 }
+#endif
 
 /**
- * accept a float or return a NaN (99999.)
- * if the next char is a comma or CR
+ * Accept an int and return it as a float.
+ * This is a kluge to handle '+00000' from WB-57 that
+ * not_nfloat() can't handle. Patch belongs in libdasio,
+ * but I need to avoid the monarch update at the moment.
  */
-int IWG1_UDP::not_nfloat(float *value) {
-  float val;
+int IWG1_UDP::not_nifloat(float *value) {
+  int32_t ival;
+  // float val;
   while (cp < nc && buf[cp] == ' ') ++cp;
   if (cp >= nc) return 1;
   if (buf[cp] == ',' || buf[cp] == '\r' || buf[cp] == '\n') {
     *value = 99999.;
     return 0;
   }
-  if (not_float(val)) return 1;
-  *value = val;
+  if (not_int32(ival)) return 1;
+  *value = ival;
   return 0;
 }
 
