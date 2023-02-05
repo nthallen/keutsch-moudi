@@ -49,7 +49,7 @@ IWG1_UDP::IWG1_UDP(TM_data_sndr *tm)
 
 bool IWG1_UDP::protocol_input() {
   if (not_str( "IWG1," ) ||
-      not_ISO8601(IWG1.Time) || not_str( "Z,", 1) ||
+      not_ISO8601(IWG1.Time) || not_str( "Z,", 2) ||
       not_nfloat(&IWG1.Lat) || not_str(",", 1) ||
       not_nfloat(&IWG1.Lon) || not_str(",", 1) ||
       not_nfloat(&IWG1.GPS_MSL_Alt) || not_str(",", 1) ||
