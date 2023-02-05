@@ -5,7 +5,7 @@ CPPFLAGS= -I /usr/local/include -I ../TM
 #   (aircraft w/o the aircraft sat connections
 # Define neither for flight mode operation
 # The same change also needs to be made in src/TM/Moudi.spec
-CXXFLAGS= -Wall -g -DLAB_TEST_CAMBRIDGE -D_DEFAULT_SOURCE -D_POSIX_SOURCE=1 -D_XOPEN_SOURCE=500 -D_POSIX_C_SOURCE=20080 -std=c++11
+CXXFLAGS= -Wall -g -D_DEFAULT_SOURCE -D_POSIX_SOURCE=1 -D_XOPEN_SOURCE=500 -D_POSIX_C_SOURCE=20080 -std=c++11
 LIBS=-ldasio -lnl -lpthread
 
 UDPtxinSRC = UDPtxin.cc UDPtxinoui.cc ../TM/UDP.cc
