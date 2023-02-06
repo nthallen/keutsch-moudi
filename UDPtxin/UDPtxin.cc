@@ -108,6 +108,7 @@ bool UDPrx_TM::protocol_input() {
     } // else cp == nc, so it was a partial record. See if we will get more.
     return 0;
   }
+  --UDPtxin.PumpS;
   UDPtxin.InstS = status % 10;
   UDPtxin.AlgoS = status / 10;
   tm->Send();

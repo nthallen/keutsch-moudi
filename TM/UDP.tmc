@@ -52,9 +52,9 @@
     UDPcsv_status.init(UDPstatus, 1000);
     UDPcsv_status.init_col(3-2,"Status","%.0lf");
     UDPcsv_status.init_col(4-2,"MoudiValveS","%.0lf");
-    UDPcsv_status.init_col(5-2,"MoudiFlow");
+    UDPcsv_status.init_col(5-2,"MoudiFlow","%.1lf");
     UDPcsv_status.init_col(6-2,"PumpS","%.0lf");
-    UDPcsv_status.init_col(7-2, "PumpV");
+    UDPcsv_status.init_col(7-2, "PumpV","%.4lf");
     UDPcsv_status.init_col(8-2, "PumpT");
     UDPcsv_status.init_col(9-2, "InstP");
     UDPcsv_status.init_col(10-2, "InstT");
@@ -72,6 +72,8 @@ TM INITFUNC UDPinit();
 depending on (1 Hz) {
   int status;
   double systime;
+  double myPumpV;
+  double MoudiFlow;
   
   status = 3;
   /* if (POPS_Srvr == 2) status |= 3; */
@@ -79,9 +81,13 @@ depending on (1 Hz) {
 
   UDPcsv_status.set_col(3-2, status+10*MoudiMode);
   UDPcsv_status.set_col(4-2, MMstat);
-  UDPcsv_status.set_col(5-2, text(MMFC_VolFlow));
-  UDPcsv_status.set_col(6-2, PumpCmd);
-  UDPcsv_status.set_col(7-2, text(PumpV));
+  MoudiFlow = convert(MMFC_VolFlow);
+  if (MoudiFlow < 0.2) MoudiFlow = 0.17;
+  UDPcsv_status.set_col(5-2, MoudiFlow);
+  UDPcsv_status.set_col(6-2, PumpCmd+1);
+  myPumpV = convert(PumpV);
+  if (myPumpV < 0.0001) myPumpV = 0.00018;
+  UDPcsv_status.set_col(7-2, myPumpV);
   UDPcsv_status.set_col(8-2, text(PumpT));
   UDPcsv_status.set_col(9-2, text(P_eff));
   UDPcsv_status.set_col(10-2, text(MS5607_T));
