@@ -15,8 +15,9 @@ else
   context_level = 1;
 end
 dfs.start_col;
-dfs.plot('a', 'label', 'Algo', 'plots', {'asws'});
+dfs.plot('a', 'label', 'Algo', 'plots', {'asws','am'});
 dfs.plot('asws','label','SW Stat','vars',{'SWStat'});
+dfs.plot('am','label','Mode','vars',{'MoudiMode'});
 dfs.plot('dacsa', 'label', 'uDACS A', 'plots', {'dacsas','dacsaais','dacsat','dacsaain'});
 dfs.plot('dacsas','label','Status','vars',{{'name','Fail','var_name','FailMode','bit_number',0},{'name','Mode','var_name','FailMode','bit_number',4}});
 dfs.plot('dacsaais','label','AI Stat','vars',{'uDACS_A_status'});

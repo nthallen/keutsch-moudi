@@ -3,4 +3,4 @@ MNEMONIC moudi
 HOMEDIR MOUDI_DATA_DIR
 
  1 SWStat        Algo SWStat
- 
+ 1 MoudiMode     Algo Mode

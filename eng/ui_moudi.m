@@ -2,6 +2,7 @@ function ui_moudi
 f = ne_dialg('SABRE Moudi',1);
 f = ne_dialg(f, 'add', 0, 1, 'gmoudia', 'Algo' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudiasws', 'SW Stat' );
+f = ne_dialg(f, 'add', 1, 0, 'pmoudiam', 'Mode' );
 f = ne_dialg(f, 'add', 0, 1, 'gmoudidacsa', 'uDACS A' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudidacsas', 'Status' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudidacsaais', 'AI Stat' );
