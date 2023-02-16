@@ -81,10 +81,10 @@ Partition
      margin to avoid rapid cycling.
      All P_moudi values are in mbar, to match HPS_P.
   */
-  #define P_moudi_low_op  155.
-  #define P_moudi_low_cl  160.
-  #define P_moudi_failsafe_op 160.
-  #define P_moudi_failsafe_cl 165.
+  #define P_moudi_low_op  150.
+  #define P_moudi_low_cl  155.
+  #define P_moudi_failsafe_op 190.
+  #define P_moudi_failsafe_cl 195.
   
   int moudi_open_P(double P) {
     #ifdef P_moudi_high_op
