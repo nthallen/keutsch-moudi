@@ -92,7 +92,7 @@ if [ $machine = Cygwin ]; then
   ulcl_o=`stat --format '%U' /usr/local`
   ulcl_g=`stat --format '%G' /usr/local`
   ulcl_p=`stat --format '%a' /usr/local`
-  if [ "$ulcl_g" = "flight" -a "$ulcl_p" = "2755" ]; then
+  if [ "$ulcl_g" = "flight" -a "$ulcl_p" = "2775" ]; then
     echo
     echo "Permissions on /usr/local look good"
     echo
