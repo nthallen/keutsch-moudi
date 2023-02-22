@@ -88,9 +88,26 @@ if [ $machine = Cygwin ]; then
     exit 1
   }
 
-  # Setup Shared Permissions
-  if [ $testmode = yes ]; then
-    echo "Skipping shared permission setup"
+  # Test shared permissions
+  ulcl_o=`stat --format '%U' /usr/local`
+  ulcl_g=`stat --format '%G' /usr/local`
+  ulcl_p=`stat --format '%a' /usr/local`
+  if [ "$ulcl_g" = "flight" -a "$ulcl_p" = "2755" ]; then
+    echo
+    echo "Permissions on /usr/local look good"
+    echo
+  elif [ "$ulcl_o" != "$USER" ]; then
+    echo
+    echo "/usr/local permissions are incorrect, but we don't own it"
+    echo "  owner:$ulcl_o group:$ulcl_g perms:$ulcl_p"
+    echo
+    echo "Trying to continue, but a clean install may be necessary"
+    echo
+    echo -n "Hit any key go continue: "
+    read j
+    echo
+  elif [ $testmode = yes ]; then
+    echo "Skipping shared permission setup for testmode"
   else
     echo "Setting up shared permissions"
     chgrp -R flight /usr/local
@@ -131,7 +148,7 @@ SSH_ENV="$HOME/.ssh/environment"
 
 function start_agent {
      echo "Initialising new SSH agent..."
-     rm -rf /tmp/ssh-*
+     rm -rf /tmp/ssh-* 2> /dev/null
      /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
      echo succeeded
      chmod 600 "${SSH_ENV}"
