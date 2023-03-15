@@ -81,8 +81,8 @@ Partition
      margin to avoid rapid cycling.
      All P_moudi values are in mbar, to match HPS_P.
   */
-  #define P_moudi_low_op  130.
-  #define P_moudi_low_cl  135.
+  #define P_moudi_low_op  110.
+  #define P_moudi_low_cl  115.
   #define P_moudi_failsafe_op 400.
   #define P_moudi_failsafe_cl 405.
   
