@@ -54,7 +54,7 @@ bool IWG1_UDP::protocol_input() {
       not_nfloat(&IWG1.Lon) || not_str(",", 1) ||
       not_nfloat(&IWG1.GPS_MSL_Alt) || not_str(",", 1) ||
       not_nfloat(&IWG1.WGS_84_Alt) || not_str(",", 1) ||
-      not_nifloat(&IWG1.Press_Alt) || not_str(",", 1) ||
+      not_nfloat(&IWG1.Press_Alt) || not_str(",", 1) ||
       not_nfloat(&IWG1.Radar_Alt) || not_str(",", 1) ||
       not_nfloat(&IWG1.Grnd_Spd) || not_str(",", 1) ||
       not_nfloat(&IWG1.True_Airspeed) || not_str(",", 1) ||
@@ -133,7 +133,6 @@ int IWG1_UDP::not_ISO8601(double *Time) {
   else *Time = (double)ltime + secs;
   return 0;
 }
-#endif
 
 /**
  * Accept an int and return it as a float.
@@ -154,6 +153,7 @@ int IWG1_UDP::not_nifloat(float *value) {
   *value = ival;
   return 0;
 }
+#endif
 
 void IWG1_UDP::Bind(int port) {
 	char service[10];

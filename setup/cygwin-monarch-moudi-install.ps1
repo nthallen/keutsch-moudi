@@ -35,7 +35,7 @@ $is_admin = $false
 $reason = ''
 $check = 'Checking'
 $ok_when = 'already'
-$exp_option = 'moudi:nthallen/keutsch-moudi.git'
+$exp_option = '-E moudi:nthallen/keutsch-moudi.git'
 # $exp_option = '-E moudi:nthallen/keutsch-moudi.git'
 
 while ($need_to_be_admin -AND -NOT $is_admin) {

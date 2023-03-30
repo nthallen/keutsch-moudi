@@ -17,7 +17,7 @@ class IWG1_UDP : public Interface {
     int fillbuf();
     // int not_ndigits(int n, int &value);
     // int not_ISO8601(double *Time);
-    int not_nifloat(float *value);
+    // int not_nifloat(float *value);
     TM_data_sndr *tm;
 };
 
