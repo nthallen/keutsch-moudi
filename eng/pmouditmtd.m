@@ -1,4 +1,4 @@
-function pmouditmtd(varargin);
+function pmouditmtd(varargin)
 % pmouditmtd( [...] );
 % T Mbase T Drift
 h = timeplot({'SysTDrift'}, ...

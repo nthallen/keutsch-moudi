@@ -1,4 +1,4 @@
-function pmouditmram(varargin);
+function pmouditmram(varargin)
 % pmouditmram( [...] );
 % T Mbase RAM
 h = timeplot({'memused'}, ...

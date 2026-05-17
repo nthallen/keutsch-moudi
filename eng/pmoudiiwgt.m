@@ -1,4 +1,4 @@
-function pmoudiiwgt(varargin);
+function pmoudiiwgt(varargin)
 % pmoudiiwgt( [...] );
 % IWG1 Temp
 h = timeplot({'Ambient_Temp','Total_Temp','Dew_Point'}, ...

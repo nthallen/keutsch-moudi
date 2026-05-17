@@ -1,4 +1,4 @@
-function pmoudiiwg1_stats(varargin);
+function pmoudiiwg1_stats(varargin)
 % pmoudiiwg1_stats( [...] );
 % IWG1 Stat Stale
 h = timeplot({'IWG1_Stale'}, ...

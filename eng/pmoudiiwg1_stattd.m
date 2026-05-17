@@ -1,4 +1,4 @@
-function pmoudiiwg1_stattd(varargin);
+function pmoudiiwg1_stattd(varargin)
 % pmoudiiwg1_stattd( [...] );
 % IWG1 Stat T Drift
 h = timeplot({'TDDrift','TDrift'}, ...

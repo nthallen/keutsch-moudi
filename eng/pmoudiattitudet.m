@@ -1,4 +1,4 @@
-function pmoudiattitudet(varargin);
+function pmoudiattitudet(varargin)
 % pmoudiattitudet( [...] );
 % Attitude Track
 h = timeplot({'Track','True_Hdg'}, ...

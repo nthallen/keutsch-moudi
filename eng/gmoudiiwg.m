@@ -1,4 +1,4 @@
-function fig = gmoudiiwg(varargin);
+function fig = gmoudiiwg(varargin)
 % gmoudiiwg(...)
 % IWG1
 ffig = ne_group(varargin,'IWG1','pmoudiiwgl','pmoudiiwglon','pmoudiiwgt','pmoudiiwgp','pmoudiiwgs','pmoudiiwgm','pmoudiiwga');

@@ -1,4 +1,4 @@
-function pmoudipt(varargin);
+function pmoudipt(varargin)
 % pmoudipt( [...] );
 % Pump Temps
 h = timeplot({'PumpT'}, ...

@@ -1,4 +1,4 @@
-function pmouditmcpu(varargin);
+function pmouditmcpu(varargin)
 % pmouditmcpu( [...] );
 % T Mbase CPU
 h = timeplot({'CPU_Pct'}, ...

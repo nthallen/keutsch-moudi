@@ -1,4 +1,4 @@
-function pmoudiahks(varargin);
+function pmoudiahks(varargin)
 % pmoudiahks( [...] );
 % Alicat HK Status
 h = timeplot({'MMFC_Status'}, ...

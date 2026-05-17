@@ -1,4 +1,4 @@
-function pmouditmd(varargin);
+function pmouditmd(varargin)
 % pmouditmd( [...] );
 % T Mbase Disk
 h = timeplot({'Disk'}, ...

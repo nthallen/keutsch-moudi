@@ -1,4 +1,4 @@
-function pmoudiiwglon(varargin);
+function pmoudiiwglon(varargin)
 % pmoudiiwglon( [...] );
 % IWG1 Lon
 h = timeplot({'Lon'}, ...

@@ -1,4 +1,4 @@
-function pmoudidacsat(varargin);
+function pmoudidacsat(varargin)
 % pmoudidacsat( [...] );
 % uDACS A Temps
 h = timeplot({'PumpT','RPi_T','Amb_T','ValveT','PlateT'}, ...

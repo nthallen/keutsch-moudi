@@ -1,4 +1,4 @@
-function pmoudiahkmbar(varargin);
+function pmoudiahkmbar(varargin)
 % pmoudiahkmbar( [...] );
 % Alicat HK mbar
 h = timeplot({'MMFC_P'}, ...

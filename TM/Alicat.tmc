@@ -1,6 +1,5 @@
 %{
   /* alicat driver interface */
-  #define ALICAT_MAX_DRIVES 1
   #include "alicat.h"
   #define Alicat_drive(x,y) Alicat[x].y
 %}

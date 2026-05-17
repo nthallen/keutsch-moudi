@@ -1,4 +1,4 @@
-function pmoudimsp(varargin);
+function pmoudimsp(varargin)
 % pmoudimsp( [...] );
 % MS5607 P
 h = timeplot({'MS5607_P','P_eff'}, ...

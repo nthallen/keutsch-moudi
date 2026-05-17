@@ -1,4 +1,4 @@
-function pmoudimc(varargin);
+function pmoudimc(varargin)
 % pmoudimc( [...] );
 % Moudi Command
 h = timeplot({'MMcmd'}, ...

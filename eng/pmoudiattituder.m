@@ -1,4 +1,4 @@
-function pmoudiattituder(varargin);
+function pmoudiattituder(varargin)
 % pmoudiattituder( [...] );
 % Attitude Roll
 h = timeplot({'Roll'}, ...

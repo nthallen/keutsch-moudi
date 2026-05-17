@@ -1,4 +1,4 @@
-function pmoudialicatnccm(varargin);
+function pmoudialicatnccm(varargin)
 % pmoudialicatnccm( [...] );
 % Alicat nccm
 h = timeplot({'MMFC_MassFlow'}, ...

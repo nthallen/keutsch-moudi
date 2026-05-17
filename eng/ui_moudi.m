@@ -1,5 +1,18 @@
-function ui_moudi
-f = ne_dialg('SABRE Moudi',1);
+function ui_moudi(dirfunc, stream)
+% ui_moudi
+% ui_moudi(dirfunc [, stream])
+% dirfunc is a string specifying the name of a function
+%   that specifies where data run directories are stored.
+% stream is an optional argument specifying which stream
+%   the run directories have recorded, e.g. 'SerIn'
+if nargin < 1
+  dirfunc = 'MOUDI_DATA_DIR';
+end
+if nargin >= 2
+  f = ne_dialg(stream, 1);
+else
+  f = ne_dialg('SABRE Moudi',1);
+end
 f = ne_dialg(f, 'add', 0, 1, 'gmoudia', 'Algo' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudiasws', 'SW Stat' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudiam', 'Mode' );
@@ -27,11 +40,11 @@ f = ne_dialg(f, 'add', 1, 0, 'pmouditmd', 'Disk' );
 f = ne_dialg(f, 'add', 0, 1, 'gmoudiahk', 'Alicat HK' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudiahks', 'Status' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudiahkstale', 'Stale' );
-f = ne_dialg(f, 'add', 1, 0, 'pmoudiahkt', 'T' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudiahkmbar', 'mbar' );
+f = ne_dialg(f, 'add', 1, 0, 'pmoudiahkt', 'T' );
 f = ne_dialg(f, 'add', 0, 1, 'gmoudialicat', 'Alicat' );
-f = ne_dialg(f, 'add', 1, 0, 'pmoudialicatccm', 'ccm' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudialicatnccm', 'nccm' );
+f = ne_dialg(f, 'add', 1, 0, 'pmoudialicatccm', 'ccm' );
 f = ne_dialg(f, 'newcol');
 f = ne_dialg(f, 'add', 0, 1, 'gmoudiiwg', 'IWG1' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudiiwgl', 'Lat' );
@@ -61,6 +74,6 @@ f = ne_dialg(f, 'add', 0, 1, 'gmoudiiwg1_stat', 'IWG1 Stat' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudiiwg1_statcp', 'Cabin Press' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudiiwg1_stattd', 'T Drift' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudiiwg1_stats', 'Stale' );
-f = ne_listdirs(f, 'MOUDI_DATA_DIR', 15);
+f = ne_listdirs(f, dirfunc, 15);
 f = ne_dialg(f, 'newcol');
 ne_dialg(f, 'resize');

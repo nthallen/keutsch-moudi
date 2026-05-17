@@ -1,4 +1,4 @@
-function pmoudidacsaain(varargin);
+function pmoudidacsaain(varargin)
 % pmoudidacsaain( [...] );
 % uDACS A AI N
 h = timeplot({'uDACS_A_N'}, ...

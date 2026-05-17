@@ -1,4 +1,4 @@
-function pmoudiasws(varargin);
+function pmoudiasws(varargin)
 % pmoudiasws( [...] );
 % Algo SW Stat
 h = timeplot({'SWStat'}, ...

@@ -1,4 +1,4 @@
-function pmoudiam(varargin);
+function pmoudiam(varargin)
 % pmoudiam( [...] );
 % Algo Mode
 h = timeplot({'MoudiMode'}, ...

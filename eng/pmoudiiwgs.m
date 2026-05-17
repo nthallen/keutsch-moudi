@@ -1,4 +1,4 @@
-function pmoudiiwgs(varargin);
+function pmoudiiwgs(varargin)
 % pmoudiiwgs( [...] );
 % IWG1 Speed
 h = timeplot({'Grnd_Spd','Indicated_Airspeed','True_Airspeed'}, ...

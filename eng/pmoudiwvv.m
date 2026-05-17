@@ -1,4 +1,4 @@
-function pmoudiwvv(varargin);
+function pmoudiwvv(varargin)
 % pmoudiwvv( [...] );
 % Wind Vert Vel
 h = timeplot({'Vert_Velocity'}, ...

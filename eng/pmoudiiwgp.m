@@ -1,4 +1,4 @@
-function pmoudiiwgp(varargin);
+function pmoudiiwgp(varargin)
 % pmoudiiwgp( [...] );
 % IWG1 Pres
 h = timeplot({'Dynamic_Press','Static_Press'}, ...

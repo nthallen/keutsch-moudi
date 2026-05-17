@@ -1,4 +1,4 @@
-function fig = gmoudia(varargin);
+function fig = gmoudia(varargin)
 % gmoudia(...)
 % Algo
 ffig = ne_group(varargin,'Algo','pmoudiasws','pmoudiam');

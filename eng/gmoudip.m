@@ -1,4 +1,4 @@
-function fig = gmoudip(varargin);
+function fig = gmoudip(varargin)
 % gmoudip(...)
 % Pump
 ffig = ne_group(varargin,'Pump','pmoudipt','pmoudips','pmoudippv');

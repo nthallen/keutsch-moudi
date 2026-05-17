@@ -1,4 +1,4 @@
-function pmoudiws(varargin);
+function pmoudiws(varargin)
 % pmoudiws( [...] );
 % Wind Speed
 h = timeplot({'Wind_Speed'}, ...

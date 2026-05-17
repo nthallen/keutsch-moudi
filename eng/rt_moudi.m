@@ -4,7 +4,7 @@ function dfs_out = rt_moudi(dfs)
 %   plots
 % dfs_out = rt_moudi(dfs)
 %   Use the data_fields object and setup all the buttons for realtime plots
-if nargin < 1
+if nargin < 1 || isempty(dfs)
   dfs = data_fields('title', 'SABRE Moudi', ...
     'Color', [.8 .8 1], ...
     'h_leading', 8, 'v_leading', 2, ...
@@ -40,14 +40,14 @@ dfs.plot('tmtd','label','T Drift','vars',{'SysTDrift'});
 dfs.plot('tmcpu','label','CPU','vars',{'CPU_Pct'});
 dfs.plot('tmram','label','RAM','vars',{'memused'});
 dfs.plot('tmd','label','Disk','vars',{'Disk'});
-dfs.plot('ahk', 'label', 'Alicat HK', 'plots', {'ahks','ahkstale','ahkt','ahkmbar'});
+dfs.plot('ahk', 'label', 'Alicat HK', 'plots', {'ahks','ahkstale','ahkmbar','ahkt'});
 dfs.plot('ahks','label','Status','vars',{'MMFC_Status'});
 dfs.plot('ahkstale','label','Stale','vars',{'MMFC_Stale','Alicat_Stale'});
-dfs.plot('ahkt','label','T','vars',{'MMFC_T'});
 dfs.plot('ahkmbar','label','mbar','vars',{'MMFC_P'});
-dfs.plot('alicat', 'label', 'Alicat', 'plots', {'alicatccm','alicatnccm'});
-dfs.plot('alicatccm','label','ccm','vars',{'MMFC_Set','MMFC_VolFlow'});
+dfs.plot('ahkt','label','T','vars',{'MMFC_T'});
+dfs.plot('alicat', 'label', 'Alicat', 'plots', {'alicatnccm','alicatccm'});
 dfs.plot('alicatnccm','label','nccm','vars',{'MMFC_MassFlow'});
+dfs.plot('alicatccm','label','ccm','vars',{'MMFC_VolFlow','MMFC_Set'});
 dfs.end_col;
 dfs.start_col;
 dfs.plot('iwg', 'label', 'IWG1', 'plots', {'iwgl','iwglon','iwgt','iwgp','iwgs','iwgm','iwga'});
@@ -80,8 +80,9 @@ dfs.plot('iwg1_statcp','label','Cabin Press','vars',{'Cabin_Press'});
 dfs.plot('iwg1_stattd','label','T Drift','vars',{'TDDrift','TDrift'});
 dfs.plot('iwg1_stats','label','Stale','vars',{'IWG1_Stale'});
 dfs.end_col;
-dfs.resize(context_level);
 dfs.set_connection('127.0.0.1', 1080);
 if nargout > 0
   dfs_out = dfs;
+else
+  dfs.resize(context_level);
 end

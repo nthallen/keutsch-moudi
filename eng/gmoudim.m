@@ -1,4 +1,4 @@
-function fig = gmoudim(varargin);
+function fig = gmoudim(varargin)
 % gmoudim(...)
 % Moudi
 ffig = ne_group(varargin,'Moudi','pmoudimc','pmoudimstatus');

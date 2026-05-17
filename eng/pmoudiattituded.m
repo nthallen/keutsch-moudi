@@ -1,4 +1,4 @@
-function pmoudiattituded(varargin);
+function pmoudiattituded(varargin)
 % pmoudiattituded( [...] );
 % Attitude Drift
 h = timeplot({'Drift'}, ...

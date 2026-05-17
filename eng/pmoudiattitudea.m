@@ -1,4 +1,4 @@
-function pmoudiattitudea(varargin);
+function pmoudiattitudea(varargin)
 % pmoudiattitudea( [...] );
 % Attitude Attack
 h = timeplot({'Angle_of_Attack'}, ...

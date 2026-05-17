@@ -1,4 +1,4 @@
-function pmoudiattitudep(varargin);
+function pmoudiattitudep(varargin)
 % pmoudiattitudep( [...] );
 % Attitude Pitch
 h = timeplot({'Pitch'}, ...

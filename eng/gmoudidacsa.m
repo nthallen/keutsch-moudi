@@ -1,4 +1,4 @@
-function fig = gmoudidacsa(varargin);
+function fig = gmoudidacsa(varargin)
 % gmoudidacsa(...)
 % uDACS A
 ffig = ne_group(varargin,'uDACS A','pmoudidacsas','pmoudidacsaais','pmoudidacsat','pmoudidacsaain');

@@ -1,4 +1,4 @@
-function pmoudidacsas(varargin);
+function pmoudidacsas(varargin)
 % pmoudidacsas( [...] );
 % uDACS A Status
 h = ne_dstat({

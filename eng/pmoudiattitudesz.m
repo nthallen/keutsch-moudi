@@ -1,4 +1,4 @@
-function pmoudiattitudesz(varargin);
+function pmoudiattitudesz(varargin)
 % pmoudiattitudesz( [...] );
 % Attitude SZ
 h = timeplot({'Solar_Zenith','Sun_Elev_AC'}, ...

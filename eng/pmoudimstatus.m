@@ -1,4 +1,4 @@
-function pmoudimstatus(varargin);
+function pmoudimstatus(varargin)
 % pmoudimstatus( [...] );
 % Moudi Status
 h = timeplot({'MMstat'}, ...

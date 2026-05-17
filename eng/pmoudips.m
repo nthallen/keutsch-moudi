@@ -1,4 +1,4 @@
-function pmoudips(varargin);
+function pmoudips(varargin)
 % pmoudips( [...] );
 % Pump Status
 h = ne_dstat({

@@ -1,4 +1,4 @@
-function pmoudiwd(varargin);
+function pmoudiwd(varargin)
 % pmoudiwd( [...] );
 % Wind Dir
 h = timeplot({'Wind_Dir'}, ...

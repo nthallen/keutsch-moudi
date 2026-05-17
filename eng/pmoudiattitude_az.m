@@ -1,4 +1,4 @@
-function pmoudiattitude_az(varargin);
+function pmoudiattitude_az(varargin)
 % pmoudiattitude_az( [...] );
 % Attitude Az
 h = timeplot({'Sun_Az_Grd'}, ...

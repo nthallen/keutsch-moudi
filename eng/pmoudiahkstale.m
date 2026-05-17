@@ -1,4 +1,4 @@
-function pmoudiahkstale(varargin);
+function pmoudiahkstale(varargin)
 % pmoudiahkstale( [...] );
 % Alicat HK Stale
 h = timeplot({'MMFC_Stale','Alicat_Stale'}, ...

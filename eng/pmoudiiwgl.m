@@ -1,4 +1,4 @@
-function pmoudiiwgl(varargin);
+function pmoudiiwgl(varargin)
 % pmoudiiwgl( [...] );
 % IWG1 Lat
 h = timeplot({'Lat'}, ...
