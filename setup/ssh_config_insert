@@ -1,0 +1,8 @@
+### Begin Moudi ssh_config_insert ###
+
+host moudi 10.11.96.150
+hostname 10.11.96.150
+user pi
+ForwardAgent yes
+
+### End Moudi ssh_config_insert ###

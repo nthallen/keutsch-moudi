@@ -6,7 +6,7 @@
 # --------------------
 # 
 # This script can be run from a Windows Cmd shell as:
-# > PowerShell -ExecutionPolicy Bypass ./cygwin-monarch-setup.ps1
+# > PowerShell -ExecutionPolicy Bypass ./cygwin-monarch-moudi-install.ps1
 #
 # ---------
 # Uninstall:
@@ -14,7 +14,7 @@
 #
 # If you would like to reverse the actions of this script
 # (i.e. delete the flight group), you can issue the command:
-# > PowerShell -ExecutionPolicy Bypass ./cygwin-monarch-setup.ps1 -uninstall
+# > PowerShell -ExecutionPolicy Bypass ./cygwin-monarch-moudi-install.ps1 -uninstall
 
 param (
   [switch]$uninstall = $false,
@@ -35,7 +35,7 @@ $is_admin = $false
 $reason = ''
 $check = 'Checking'
 $ok_when = 'already'
-$exp_option = '-E moudi:nthallen/keutsch-moudi.git'
+$exp_option = ''
 # $exp_option = '-E moudi:nthallen/keutsch-moudi.git'
 
 while ($need_to_be_admin -AND -NOT $is_admin) {
@@ -143,8 +143,11 @@ if ($setup_cygwin) {
 
   if (Test-Path -Path setup-x86_64.exe -PathType Leaf)
   {
+    $base_pkgs = "bzip2,cygwin-doc,file,less,openssh,git,chere,cmake,doxygen,graphviz,gcc-core,gcc-g++,gdb,make,bison,flex,perl,libncurses-devel,screen"
+    $exp_pkgs = ''
+    $all_pkgs = "$base_pkgs$exp_pkgs"
     Write-Output "`nInvoking Cygwin Setup`n"
-    start-process setup-x86_64.exe  -Wait -argumentlist "--packages bzip2,cygwin-doc,file,less,openssh,git,chere,cmake,doxygen,graphviz,gcc-core,gcc-g++,gdb,make,bison,flex,perl,libncurses-devel,screen"
+    start-process setup-x86_64.exe  -Wait -argumentlist "--packages $all_pkgs --upgrade-also --no-desktop"
   }
   else
   {
@@ -170,7 +173,7 @@ $setup_script = @'
 function print_usage {
 cat 1>&2 <<'EOF'
 # Usage:
-#   ./monarch-install [ -E moudi:nthallen/keutsch-moudi.git ] [-n] [-h] [-S]
+#   ./monarch-moudi-install.sh [ -E moudi:nthallen/keutsch-moudi.git ] [-n] [-h] [-S]
 #
 # -E <basename>:<URL>
 #    Also install the instrument source code. <basename> is the
@@ -218,7 +221,9 @@ function wrap_path {
   esac
 }
 
-exp_option=''
+exp_option='moudi:nthallen/keutsch-moudi.git'
+base_debian_pkgs='cmake doxygen gawk graphviz gdb gcc g++ git bison flex libncurses-dev openssh-server screen'
+exp_debian_pkgs=''
 exp_base=''
 exp_url=''
 testmode=no
@@ -243,12 +248,44 @@ fi
 
 myuser=`id -un`
 if [ $machine = Cygwin ]; then
-   # Verify that the flight group flight exists and user is a member
-  id -Gn | grep -q '\bflight\b' || {
-    echo "monarch_install: user '$myuser' does not appear to be a member"
-    echo "of group 'flight'. If you have not run cygwin-monarch-install.ps1,"
-    echo "do so now. Otherwise try restarting the system and then rerun"
-    echo "cygwin-monarch-install.ps1."
+  # Check and fix permissions on start menu
+  cygdir='/cygdrive/c/ProgramData/Microsoft/Windows/Start Menu/Programs/Cygwin'
+  cyglnk="$cygdir/Cygwin64 Terminal.lnk"
+  if [ -e "$cyglnk" ]; then
+    cygperm=`stat --format='%a' "$cyglnk"`
+    [ "$cygperm" = "775" ] || {
+      chmod 0775 "$cyglnk"
+      echo "monarch-moudi-install.sh: Permission fix applied for Cygwin Start Menu Link"
+    }
+  fi
+  # Apply vi annoyance fix if it isn't already present
+  [ -f ~/.exrc ] || {
+    touch ~/.exrc
+    echo "monarch-moudi-install.sh: Installed vi startup error mitigation"
+  }
+  # Verify that the monarch group flight exists and user is a member
+  id | grep -q '(flight)' || {
+    if id | grep -q "(`hostname`+flight)"; then
+      echo "monarch-moudi-install.sh: The flight group 'flight' has been created,"
+      echo "but it is manifested under Cygwin here as '`hostname`+flight'."
+      if [ -f /etc/group ]; then
+        echo "It looks like you may already have a mitigation in place in"
+        echo "/etc/group. Try closing this terminal session, opening another,"
+        echo "and rerunning this script. If that doesn't work, seek help from"
+        echo "the developer."
+      else
+        mkgroup -l -g flight | sed -e "s/^`hostname`+//" > /etc/group
+        echo "A workaround has been applied, but you need to exit this terminal"
+        echo "session, open a new one and re-execute this script"
+      fi
+      echo "This script was executed as '$0'"
+      echo "from the directory '$PWD'"
+    else
+      echo "monarch-moudi-install.sh: user '$myuser' does not appear to be a member"
+      echo "of group 'flight'. If you have not run cygwin-monarch-moudi-install.ps1,"
+      echo "do so now. Otherwise try restarting the system and then rerun"
+      echo "cygwin-monarch-moudi-install.ps1."
+    fi
     echo
     echo -n "Hit Enter to terminate:"
     read j
@@ -289,17 +326,37 @@ if [ $machine = Cygwin ]; then
   fi
 else
   # other operating systems (where we have sudo, among other things)
-  nl_error "setup for non-Cygwin is not yet complete"
   # Check if flight user exists and add if necessary
   if grep -q "^flight:" /etc/passwd; then
     echo "monarch_install.sh: flight user already exists"
   else
+    echo "monarch-moudi-install.sh: Need to create user flight and group flight"
     $sudo addgroup flight
+    echo "monarch-moudi-install.sh: flight group created"
     $sudo adduser --disabled-password --gecos "flight user" --no-create-home --ingroup flight flight
-    echo "monarch_setup.sh: flight user created"
+    echo "monarch-moudi-install.sh: flight user created"
   fi
-  $sudo adduser $myuser flight
+  id -Gn | grep -q '\bflight\b' ||
+    $sudo adduser $myuser flight
 fi
+id -Gn | grep -q '\bflight\b' || {
+  echo "monarch-moudi-install.sh: user '$myuser' does not appear to be a member"
+  echo "of group 'flight'. If this script just created group flight,"
+  echo "you will need to close your terminal session, open another, and"
+  echo "rerun this script in order to complete the installation"
+  echo
+  echo -n "Hit Enter to terminate:"
+  read j
+  exit 1
+}
+
+umask 02
+echo "monarch-moudi-install.sh: checking permissions on /usr/local/src"
+[ -d /usr/local/src ] || $sudo mkdir -p -m 02775 /usr/local/src
+uls_g=`stat --format '%G' /usr/local/src`
+[ "$uls_g" = "flight" ] || $sudo chgrp flight /usr/local/src
+uls_a=`stat --format '%a' /usr/local/src`
+[ "$uls_a" = "2775" ] || $sudo chmod 02775 /usr/local/src
 
 if [ $installagent = yes ]; then
   if [ $machine = Cygwin ]; then
@@ -428,6 +485,32 @@ echo
 echo "Continuing:"
 echo
 
+if [ $machine = Linux ]; then
+  release=`cat /etc/issue`
+  case "$release" in
+    Debian*) distro=Debian;;
+    Ubuntu*) distro=Debian;;
+    *) distro=Unclear;;
+  esac
+  if [ $distro = Debian ]; then
+    echo "monarch-moudi-install.sh: Checking prerequisites"
+    # cmake doxygen gawk graphviz gdb gcc g++ git bison flex libncurses-dev openssh-server screen
+    sudo apt install $base_debian_pkgs$exp_debian_pkgs
+  else
+    echo "monarch-moudi-install.sh: Not specifically configured for release '$release'."
+    echo "Need to determine how to add packages to meet build prerequisites."
+    echo "The following tools are required:"
+    echo "  cmake git gdb gcc g++ bison flex libncurses-dev screen"
+    echo "Note: In addition, doxygen and graphviz are required to generate the"
+    echo "monarch documentation, but that is not required on all systems."
+    echo
+    echo "You can make these updates now in another terminal and then continue."
+    echo
+    echo -n "Hit Enter to continue: "
+    read j
+  fi
+fi
+
 if [ -d /usr/local/src/monarch/git ]; then
   echo
   echo "Skipping Monarch clone (already cloned)"
@@ -440,7 +523,7 @@ else
   $sudo mkdir -p /usr/local/src/monarch
   [ -d /usr/local/src/monarch ] || nl_error "Unable to create /usr/local/src/monarch"
   $sudo chgrp flight /usr/local/src/monarch
-  chmod g+ws /usr/local/src/monarch
+  $sudo chmod g+ws /usr/local/src/monarch
   cd /usr/local/src/monarch
   git clone git@github.com:nthallen/monarch.git git ||
     nl_error "git returned an error"
@@ -459,6 +542,7 @@ else
   cd /usr/local/src/monarch/git
   build_ok=no
   ./build.sh && $sudo ./build.sh install && build_ok=yes
+  [ $build_ok = yes ] || nl_error "Monarch build or install failed"
   [ $build_ok = yes -a $machine != Cygwin ] &&
     /usr/local/share/monarch/setup/monarch_setup.sh
 
@@ -504,12 +588,8 @@ if [ -n "$exp_base" -a -n "$exp_url" ]; then
       [ -d $exp_base ] || nl_error "git clone of $exp_url failed"
     fi
   fi
-  [ -d $exp_src ] || nl_error "Internal: expected exp_src at $exp_src"
-  exp_eng_path=$exp_src/eng
-  [ -d $exp_eng_path ] ||
-    nl_error "Unable to locate 'eng' under $exp_src"
-  exp_eng_wrap_path=`wrap_path $exp_eng_path`
-
+  [ -d $exp_src ] ||
+    nl_error "Internal: expected exp_src at $exp_src"
   arp_das_matlab_path=$arp_das_parent/arp-das-matlab
   [ -d $arp_das_parent ] ||
     nl_error "Internal: thought '$arp_das_parent' was a directory"
@@ -521,28 +601,104 @@ if [ -n "$exp_base" -a -n "$exp_url" ]; then
   arp_das_matlab_dfs_wrap_path=`wrap_path $arp_das_matlab_path/dfs`
 
   cat >$matscriptfile <<EOF
-fprintf(1,'Running $scriptname to setup Matlab PATH for MOUDI\n');
+fprintf(1,'Running $scriptname to setup Matlab PATH for $exp_base\n');
 addpath('$arp_das_matlab_wrap_path');
 addpath('$arp_das_matlab_ne_wrap_path');
 addpath('$arp_das_matlab_dfs_wrap_path');
-addpath('$exp_eng_wrap_path');
-savepath;
 EOF
 
-  if [ -f $exp_src/setup/getrun.cfg ]; then
+  if [ -f $exp_src/setup/getrun.ini ]; then
     [ -d ~/.monarch ] || mkdir ~/.monarch
-    while read Exp dirname startupname fdesc; do
-      [ -f "$exp_eng_path/$startupname.m" ] ||
-        nl_error "Startup script $startupname.m for $Exp not found"
-      cat >~/.monarch/getrun.$Exp.config <<EOF
-getrun_data_funcfile=$exp_eng_path/$dirname.m
-getrun_startup=$startupname
+    . /usr/local/libexec/setup_getrun.sh
+    function output_getrun_exp_ini {
+      if [ -z "$data_dir_desc" ]; then
+        if [ -z "$data_desc" ]; then
+          data_dir_desc="MATLAB data files for $cur_exp"
+        else
+          data_dir_desc="$data_desc MATLAB Data"
+        fi
+      fi
+      if [ -z "$startup_func" -a -n "$ui_func" ]; then
+        if [ -n '$data_desc' ]; then
+          startup_func="getrun_startup(@$ui_func, '$data_dir_func', '$data_desc')"
+        else
+          startup_func="getrun_startup(@$ui_func, '$data_dir_func')"
+        fi
+      fi
+      [ -z "$eng_dir" -a -d "$exp_src/eng" ] &&
+        eng_dir=eng
+      exp_eng_path=$exp_src/$eng_dir
+      [ -d $exp_eng_path ] ||
+        nl_error "Unable to locate '$eng_dir' under $exp_src"
+      exp_eng_wrap_path=`wrap_path $exp_eng_path`
+      cat >~/.monarch/getrun.$cur_exp.ini <<EOF
+[$cur_exp]
+data_dir_func=$data_dir_func
+data_desc=$data_desc
+data_dir_desc=$data_dir_desc
+startup_func="$startup_func"
+ui_func=$ui_func
+eng_dir=$exp_eng_path
 EOF
       cat >>$matscriptfile <<EOF
-fprintf(1,'Identify the directory for $fdesc\n');
-update_ne_runsdir('$dirname', '$exp_eng_wrap_path');
+addpath('$exp_eng_wrap_path');
+fprintf(1,'Identify the directory for $data_dir_desc\n');
+update_ne_runsdir('$data_dir_func', '$exp_eng_wrap_path');
 EOF
-    done < $exp_src/setup/getrun.cfg
+    }
+    process_getrun_ini $exp_src/setup/getrun.ini
+    cat >>$matscriptfile <<EOF
+savepath;
+EOF
+  fi
+
+  ins_file=$exp_src/setup/ssh_config_insert
+  ssh_cfg=$exp_src/setup/ssh_config
+  cfg_dir=/etc/monarch/$exp_base
+  if [ -f $ssh_cfg ]; then
+    $sudo mkdir -p $cfg_dir
+    [ -d $cfg_dir ] || nl_error "Unable to create $cfg_dir"
+    $sudo cp $ssh_cfg $cfg_dir
+    $sudo chmod g-w $cfg_dir/ssh_config
+  fi
+  if [ -f $ins_file ]; then
+    umask 023 # Make sure not to add g+w to ~/.ssh/config
+    line1=$(head -n1 $ins_file)
+    line2=$(tail -n1 $ins_file)
+    rmpatch=no
+    addpatch=no
+    [ -f ~/.ssh/config ] || touch ~/.ssh/config
+    sed -ne "/^$line1/,/^$line2/ p" ~/.ssh/config >${ins_file}.old
+    if cmp --quiet $ins_file ${ins_file}.old; then
+      echo "Code from $ins_file is already present in ~/.ssh/config"
+    elif [ -s ${ins_file}.old ]; then
+      echo "An old version of the code from $ins_file is present in ~/.ssh/config:"
+      echo
+      diff -u ${ins_file}.old $ins_file | sed -e 's/^/  /'
+      rmpatch=yes
+      addpatch=yes
+    else
+      echo "Code from $ins_file is not present in ~/.ssh/config"
+      addpatch=yes
+    fi
+    rm -f ${ins_file}.old
+
+    if [ $rmpatch = yes -o $addpatch = yes ]; then
+      echo
+      echo "Updating ~/.ssh/config. Old version saved in ~/.ssh/config.prev"
+      rm -f ~/.ssh/config.prev
+      mv ~/.ssh/config ~/.ssh/config.prev
+
+      if [ $rmpatch = yes ]; then
+        sed -e "/^$line1/,/^$line2/ d" ~/.ssh/config.prev >~/.ssh/config
+      else
+        cp ~/.ssh/config.prev ~/.ssh/config
+      fi
+
+      if [ $addpatch = yes ]; then
+        cat $ins_file >>~/.ssh/config
+      fi
+    fi
   fi
 
   # Now locate matlab and run it, specifying this directory and the
@@ -565,11 +721,10 @@ EOF
   fi
 
 fi
-
 '@
-$setup_script | Out-File -FilePath "./monarch-install.sh" -NoNewLine -Encoding ASCII
+$setup_script | Out-File -FilePath "./monarch-moudi-install.sh" -NoNewLine -Encoding ASCII
 
-Write-Output "`nStarting standard install script: /usr/local/src/monarch-install.sh`n"
+Write-Output "`nStarting standard install script: /usr/local/src/monarch-moudi-install.sh`n"
 
 # -Wait won't work here, because mintty.exe doesn't really exit until ssh-agent does
-start-process C:\cygwin64\bin\mintty.exe -argumentlist "-h always /bin/bash --login /usr/local/src/monarch-install.sh -S $exp_option"
+start-process C:\cygwin64\bin\mintty.exe -argumentlist "-h always /bin/bash --login /usr/local/src/monarch-moudi-install.sh -S $exp_option"
