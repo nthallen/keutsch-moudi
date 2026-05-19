@@ -96,7 +96,7 @@ TM typedef AD7770_count_t ADS1115_count_t;
 TM typedef float MS5607_P_t { text "%8.3lf"; } /* mbar */
 TM typedef float MS5607_T_t { text "%7.3lf"; } /* Celcius */
 
-TM typedef uint8_t PwrStat_t { text "%2X"; }
+TM typedef uint16_t PwrStat_t { text "%5u"; }
 
 %{
   #define uDACS_on_off_text(x) ((x) ? " on" : "off")

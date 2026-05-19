@@ -6,6 +6,7 @@ TM typedef uint8_t Fail_t { text "%02X"; }
  */
 TM 1 Hz Fail_t FailMode;
 TM 1 Hz PwrStat_t PwrStat;
+TM 1 Hz PwrStat_t PwrStat2;
 
 /* MS5607 P and T */
 TM 1 Hz MS5607_P_t MS5607_P;
@@ -61,7 +62,7 @@ group uDACS_A (
     /* uDACS_A_VSet0, uDACS_A_VSet1, uDACS_A_VSet2, uDACS_A_VSet3, */
     uDACS_A_status, PumpT, ValveT, PlateT, RPi_T, Amb_T, uDACS_A_N,
     /* uDACS_A_elapsed, uDACS_A_curloopdur, uDACS_A_maxloopdur, */
-    FailMode, PwrStat) {
+    FailMode, PwrStat, PwrStat2) {
   if (uDACS_mread(uDACS_A)) {
     MS5607_P = rvals_to_float(uDACS_A_rvals[0]);
     MS5607_T = rvals_to_float(uDACS_A_rvals[2]);
@@ -89,8 +90,7 @@ group uDACS_A (
     */
     
     FailMode = (uDACS_A_rvals[14] & 0x01) | (((uDACS_A_rvals[15] & 0x01)^0x01)<<4);
-    PwrStat = uDACS_A_rvals[16] & 0xFF;
-    
+    PwrStat = uDACS_A_rvals[16];
     PumpV = uDACS_A_rvals[17];
 
   }

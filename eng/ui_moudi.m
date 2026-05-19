@@ -31,6 +31,7 @@ f = ne_dialg(f, 'add', 1, 0, 'pmoudippv', 'Pump V' );
 f = ne_dialg(f, 'add', 0, 1, 'gmoudim', 'Moudi' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudimc', 'Command' );
 f = ne_dialg(f, 'add', 1, 0, 'pmoudimstatus', 'Status' );
+f = ne_dialg(f, 'add', 1, 0, 'pmoudimb', 'Bypass' );
 f = ne_dialg(f, 'newcol');
 f = ne_dialg(f, 'add', 0, 1, 'gmouditm', 'T Mbase' );
 f = ne_dialg(f, 'add', 1, 0, 'pmouditmtd', 'T Drift' );

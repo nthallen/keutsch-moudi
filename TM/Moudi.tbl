@@ -5,6 +5,7 @@ Moudi {
   HBox { +-; Title: "Mini-Moudi"; -+ };
   Command: (MMcmd,5);
   Status:  (MMstat,6);
+  Bypass:  (MM_BPV,3);
 }
 
 ADC_A {
