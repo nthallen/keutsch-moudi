@@ -19,8 +19,9 @@
 # 1 Rov5T uDACS_A Temps
 
   1 uDACS_A_N uDACS_A AI_N
-  1 PumpCmd:PwrStat:3 Pump Status %.0lf
+  1 PumpCmd:PwrStat:3 Pump Status
   1 PumpV Pump PumpV
   
   1 MMcmd  Moudi Command %.0lf
   1 MMstat Moudi Status %.0lf
+  1 MM_BPV:PwrStat:8 Moudi Bypass
