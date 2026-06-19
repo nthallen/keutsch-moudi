@@ -3,13 +3,15 @@
 function print_usage {
 cat 1>&2 <<'EOF'
 # Usage:
-#   ./monarch-moudi-install.sh [ -E moudi:nthallen/keutsch-moudi.git ] [-n] [-h] [-S]
+#   ./monarch-moudi-install.sh [ -E moudi:nthallen/keutsch-moudi.git ] [-n] [-h] [-S] [-U]
 #
 # -E <basename>:<URL>
 #    Also install the instrument source code. <basename> is the
 #    basename of the instrument's HomeDir. <URL> is unique portion
 #    of the GitHub URL for the experiment's monarch codebase
+# -M Install tools for MATLAB and configure
 # -S Install /etc/profile.d/ssh-agent.sh
+# -U Install /etc/profile.d/monarch_umask.sh
 # -n do not make any changes (test mode)
 # -h print this help message
 #
@@ -32,7 +34,8 @@ function nl_error {
 PATH=/usr/local/bin:/usr/bin:$PATH
 startup_dir=$PWD
 scriptname=monarch_install
-matscriptfile=$scriptname.m
+matscriptdir=~
+matscriptfile=$matscriptdir/$scriptname.m
 OS=`uname -s`
 case "$OS" in
   CYGWIN_NT*) machine=Cygwin; sudo=;;
@@ -58,10 +61,14 @@ exp_base=''
 exp_url=''
 testmode=no
 installagent=no
+installumask=no
+configurematlab=no
 
-while getopts "E:Shn" o; do
+while getopts "E:SUMhn" o; do
   case "$o" in
     S) installagent=yes;;
+    U) installumask=yes;;
+    M) configurematlab=yes;;
     n) testmode=yes;;
     h) print_usage;;
     E) exp_option=$OPTARG;;
@@ -232,6 +239,34 @@ EOF
     echo "setting up ssh-agent"
     $sudo mv $tmpfile /etc/profile.d/ssh_agent.sh
     $sudo chmod a+r /etc/profile.d/ssh_agent.sh
+  fi
+  rm -f $tmpfile
+fi
+
+
+if [ $installumask = yes ]; then
+  if [ $machine = Cygwin ]; then
+    tmpdir='='`cygpath $USERPROFILE`/AppData/Local/Temp
+  else
+    tmpdir=''
+  fi
+  tmpfile=`mktemp --tmpdir$tmpdir monarch_umask.sh.XXXXXXXXX`
+  cat >$tmpfile <<'EOF'
+# monarch_umask.sh
+# Sets umask to 02 in order to enable group write permissions in
+# experiment directories shared among members of the 'flight'
+# group.
+# This can be copied to /etc/profile.d/monarch_umask.sh to be run
+# on login.
+umask 02
+
+EOF
+  if [ $testmode = yes ]; then
+    echo "Skipping monarch_umask setup. tmpfile=$tmpfile"
+  else
+    echo "setting up monarch_umask"
+    $sudo mv $tmpfile /etc/profile.d/monarch_umask.sh
+    $sudo chmod a+r /etc/profile.d/monarch_umask.sh
   fi
   rm -f $tmpfile
 fi
@@ -421,11 +456,13 @@ if [ -n "$exp_base" -a -n "$exp_url" ]; then
   [ -d $exp_src ] ||
     nl_error "Internal: expected exp_src at $exp_src"
   arp_das_matlab_path=$arp_das_parent/arp-das-matlab
-  [ -d $arp_das_parent ] ||
-    nl_error "Internal: thought '$arp_das_parent' was a directory"
-  cd $arp_das_parent
-  [ -d $arp_das_matlab_path ] ||
-    git clone git@github.com:nthallen/arp-das-matlab.git
+  if [ $configurematlab = yes ]; then
+    [ -d $arp_das_parent ] ||
+      nl_error "Internal: thought '$arp_das_parent' was a directory"
+    cd $arp_das_parent
+    [ -d $arp_das_matlab_path ] ||
+      git clone git@github.com:nthallen/arp-das-matlab.git
+  fi
   arp_das_matlab_wrap_path=`wrap_path $arp_das_matlab_path`
   arp_das_matlab_ne_wrap_path=`wrap_path $arp_das_matlab_path/ne`
   arp_das_matlab_dfs_wrap_path=`wrap_path $arp_das_matlab_path/dfs`
@@ -481,15 +518,16 @@ EOF
 savepath;
 EOF
   fi
+  echo "MATLAB configuration script has been written to $matscriptfile"
 
   ins_file=$exp_src/setup/ssh_config_insert
   ssh_cfg=$exp_src/setup/ssh_config
   cfg_dir=/etc/monarch/$exp_base
   if [ -f $ssh_cfg ]; then
-    $sudo mkdir -p $cfg_dir
-    [ -d $cfg_dir ] || nl_error "Unable to create $cfg_dir"
-    $sudo cp $ssh_cfg $cfg_dir
-    $sudo chmod g-w $cfg_dir/ssh_config
+    echo "Warning: Use of ssh_config has been deprecated"
+  fi
+  if [ -d $cfg_dir ]; then
+    echo "Warning: Use of $cfg_dir is deprecated: consider deleting"
   fi
   if [ -f $ins_file ]; then
     umask 023 # Make sure not to add g+w to ~/.ssh/config
@@ -533,21 +571,24 @@ EOF
 
   # Now locate matlab and run it, specifying this directory and the
   # name of the newly created set script
-  S=`which matlab 2>/dev/null`
-  if [ -n "$S" ]; then
-    matlab=matlab
-  else
-    for path in /Applications/MATLAB*; do
-      [ -e $path/bin/matlab ] && matlab=$path/bin/matlab
-    done
-  fi
+  if [ $configurematlab = yes ]; then
+    S=`which matlab 2>/dev/null`
+    if [ -n "$S" ]; then
+      matlab=matlab
+    else
+      for path in /Applications/MATLAB*; do
+        [ -e $path/bin/matlab ] && matlab=$path/bin/matlab
+      done
+    fi
 
-  SW_wrap_path=`wrap_path $PWD`
-  if [ -n "$matlab" ]; then
-    echo "Starting $matlab to complete setup"
-    eval $matlab -sd '$SW_wrap_path' -r $scriptname
-  else
-    nl_error "Unable to locate Matlab executable"
+    SW_wrap_path=`wrap_path $PWD`
+    if [ -n "$matlab" ]; then
+      echo "Starting $matlab to complete setup"
+      cd $matscriptdir
+      eval $matlab -sd '$SW_wrap_path' -r $scriptname
+    else
+      nl_error "Unable to locate Matlab executable"
+    fi
   fi
 
 fi
