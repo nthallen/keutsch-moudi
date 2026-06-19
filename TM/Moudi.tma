@@ -110,8 +110,10 @@ State Moudi_init {
 State Moudi_close {
     Validate Pump_Speed_Idle;
     > Moudi Valve off
-    > MFC Moudi Flow Setpoint 0 ccm
- +1 > Pump Power Off
+    # For INSPYRE, we will keep the pump on basically always, with
+    # the bypass valve open when Moudi is closed.
+    > MFC Moudi Flow Setpoint 2000 ccm
+ +1 > Pump Power On
  +1 > Set Pump Speed 2 Volts
 
   { if ((MoudiMode == SWS_MOUDI_P_CTRL &&

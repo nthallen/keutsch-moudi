@@ -90,7 +90,8 @@ group uDACS_A (
     */
     
     FailMode = (uDACS_A_rvals[14] & 0x01) | (((uDACS_A_rvals[15] & 0x01)^0x01)<<4);
-    PwrStat = uDACS_A_rvals[16];
+    PwrStat = uDACS_A_rvals[16] & 0xFF;
+    PwrStat2 = (uDACS_A_rvals[16] >> 8) & 0xFF;
     PumpV = uDACS_A_rvals[17];
 
   }

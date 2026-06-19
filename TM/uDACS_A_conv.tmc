@@ -130,4 +130,4 @@ MS5607_P_t P_eff; Invalidate P_eff;
 
 TM typedef uint8_t MM_BPV_t { text "%3u" FailText_txt(); }
 MM_BPV_t MM_BPV; Invalidate MM_BPV;
-{ MM_BPV = (PwrStat>>8)&1; Validate MM_BPV; }
+{ MM_BPV = PwrStat2&1; Validate MM_BPV; }
