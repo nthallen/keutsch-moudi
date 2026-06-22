@@ -5,7 +5,7 @@ network:
       renderer: NetworkManager
       match: {}
       addresses:
-      - "10.11.96.151/24"
+      - "10.11.96.150/24"
       networkmanager:
         uuid: "75a1216a-9d1a-30cd-8aca-ace5526ec021"
         name: "netplan-eth0"
