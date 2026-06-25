@@ -1,33 +1,35 @@
+/usr/local/libexec/usb_enum >USB_def.log
+. ./USB_def.log
+
   Launch      memo     memo -o $Experiment.log -l4
               [ -z "$launch_err" ] &&
                 msg -nflight "Running script interact"
   Launch      tm_bfr   bfr -H bfr: -S:
 
-RS485=
-uDACS_A=
-uDACS_B=
-id | grep -q '(dialout)' ||
-  msg -n interact "[ERROR] flight not in group dialout: `id`"
-for dev in /dev/ttyUSB*; do
-  if [ -c "$dev" ]; then
-    verb=`$TMBINDIR/USB_ID.exp $dev verbose | tr [:cntrl:] ' '`
-    verb=${verb% }
-    foo=${verb##* }
-    case "$foo" in
-      *=*)
-        port=${foo#*=}
-        device=${foo%=*}
-        eval deviceport="\$$device"
-        if [ -n "$deviceport" ]; then
-          msg -n interact "$device identified on both $deviceport and $port"
-        else
-          eval $foo
-        fi;;
-      *) msg -n interact "port $dev unidentified verb='$verb'";;
-    esac
-  fi
-done
-
+RS485=$alicat
+uDACS_A=uDACS16
+# id | grep -q '(dialout)' ||
+#   msg -n interact "[ERROR] flight not in group dialout: `id`"
+# for dev in /dev/ttyUSB*; do
+#   if [ -c "$dev" ]; then
+#     verb=`$TMBINDIR/USB_ID.exp $dev verbose | tr [:cntrl:] ' '`
+#     verb=${verb% }
+#     foo=${verb##* }
+#     case "$foo" in
+#       *=*)
+#         port=${foo#*=}
+#         device=${foo%=*}
+#         eval deviceport="\$$device"
+#         if [ -n "$deviceport" ]; then
+#           msg -n interact "$device identified on both $deviceport and $port"
+#         else
+#           eval $foo
+#         fi;;
+#       *) msg -n interact "port $dev unidentified verb='$verb'";;
+#     esac
+#   fi
+# done
+# 
 for device in RS485 uDACS_A; do
   eval deviceport="\$$device"
   if [ -n "$deviceport" ]; then
