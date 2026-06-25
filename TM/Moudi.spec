@@ -22,7 +22,7 @@ Module IWG1
 TGTDIR = /home/moudi
 IGNORE = "*.o" "*.exe" "*.stackdump" Makefile
 DISTRIB = services interact runfile.flight
-DISTRIB = USB_ID.exp Rovers.txt
+DISTRIB = USB.id USB_ID.exp Rovers.txt
 
 Moudicol : -lsubbuspp
 Moudisrvr : -lsubbuspp uDACS_cmd.oui
