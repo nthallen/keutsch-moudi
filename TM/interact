@@ -6,8 +6,8 @@
                 msg -nflight "Running script interact"
   Launch      tm_bfr   bfr -H bfr: -S:
 
-RS485=$alicat
-uDACS_A=uDACS16
+RS485=$alicat_port
+uDACS_A=$uDACS16_port
 # id | grep -q '(dialout)' ||
 #   msg -n interact "[ERROR] flight not in group dialout: `id`"
 # for dev in /dev/ttyUSB*; do
