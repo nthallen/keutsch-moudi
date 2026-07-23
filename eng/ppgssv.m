@@ -1,4 +1,4 @@
-function ppgssv(varargin);
+function ppgssv(varargin)
 % ppgssv( [...] );
 % Status Valve
 h = timeplot({'ValveS'}, ...

@@ -1,4 +1,4 @@
-function ppgsat(varargin);
+function ppgsat(varargin)
 % ppgsat( [...] );
 % Analog Temp
 h = timeplot({'PumpT'}, ...

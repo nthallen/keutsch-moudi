@@ -1,4 +1,4 @@
-function ppgsaf(varargin);
+function ppgsaf(varargin)
 % ppgsaf( [...] );
 % Analog Flow
 h = timeplot({'MoudiFlow'}, ...

@@ -1,4 +1,4 @@
-function ppgstmd(varargin);
+function ppgstmd(varargin)
 % ppgstmd( [...] );
 % T Mbase Disk
 h = timeplot({'Disk'}, ...

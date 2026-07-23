@@ -1,4 +1,4 @@
-function fig = gpgss(varargin);
+function fig = gpgss(varargin)
 % gpgss(...)
 % Status
 ffig = ne_group(varargin,'Status','ppgsss','ppgssd','ppgssstatus','ppgssa','ppgssv','ppgssp');

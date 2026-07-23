@@ -1,4 +1,4 @@
-function ppgsap(varargin);
+function ppgsap(varargin)
 % ppgsap( [...] );
 % Analog Pres
 h = timeplot({'InstP'}, ...

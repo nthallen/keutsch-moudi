@@ -1,4 +1,4 @@
-function ppgssp(varargin);
+function ppgssp(varargin)
 % ppgssp( [...] );
 % Status Pump
 h = timeplot({'PumpS'}, ...

@@ -1,4 +1,4 @@
-function ppgsss(varargin);
+function ppgsss(varargin)
 % ppgsss( [...] );
 % Status Stale
 h = timeplot({'UDPtxin_Stale'}, ...

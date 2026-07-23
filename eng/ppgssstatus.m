@@ -1,4 +1,4 @@
-function ppgssstatus(varargin);
+function ppgssstatus(varargin)
 % ppgssstatus( [...] );
 % Status Status
 h = timeplot({'InstS'}, ...

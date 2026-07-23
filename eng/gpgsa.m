@@ -1,4 +1,4 @@
-function fig = gpgsa(varargin);
+function fig = gpgsa(varargin)
 % gpgsa(...)
 % Analog
 ffig = ne_group(varargin,'Analog','ppgsaf','ppgsat','ppgsap','ppgsaat');

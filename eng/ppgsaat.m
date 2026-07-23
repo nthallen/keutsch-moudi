@@ -1,4 +1,4 @@
-function ppgsaat(varargin);
+function ppgsaat(varargin)
 % ppgsaat( [...] );
 % Analog Amb T
 h = timeplot({'InstT'}, ...

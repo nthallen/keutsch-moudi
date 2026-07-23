@@ -1,4 +1,4 @@
-function ppgssd(varargin);
+function ppgssd(varargin)
 % ppgssd( [...] );
 % Status Drift
 h = timeplot({'UDPdrift'}, ...

@@ -1,4 +1,4 @@
-function ppgssa(varargin);
+function ppgssa(varargin)
 % ppgssa( [...] );
 % Status Algo
 h = timeplot({'AlgoS'}, ...

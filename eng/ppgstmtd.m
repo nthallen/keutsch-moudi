@@ -1,4 +1,4 @@
-function ppgstmtd(varargin);
+function ppgstmtd(varargin)
 % ppgstmtd( [...] );
 % T Mbase T Drift
 h = timeplot({'SysTDrift'}, ...

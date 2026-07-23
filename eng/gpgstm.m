@@ -1,4 +1,4 @@
-function fig = gpgstm(varargin);
+function fig = gpgstm(varargin)
 % gpgstm(...)
 % T Mbase
 ffig = ne_group(varargin,'T Mbase','ppgstmtd','ppgstmcpu','ppgstmram','ppgstmd');

@@ -4,7 +4,7 @@ function dfs_out = rt_pgs(dfs)
 %   plots
 % dfs_out = rt_pgs(dfs)
 %   Use the data_fields object and setup all the buttons for realtime plots
-if nargin < 1
+if nargin < 1 || isempty(dfs)
   dfs = data_fields('title', 'SABRE MOUDI PGS', ...
     'Color', [.8 .8 1], ...
     'h_leading', 8, 'v_leading', 2, ...
@@ -33,8 +33,9 @@ dfs.plot('at','label','Temp','vars',{'PumpT'});
 dfs.plot('ap','label','Pres','vars',{'InstP'});
 dfs.plot('aat','label','Amb T','vars',{'InstT'});
 dfs.end_col;
-dfs.resize(context_level);
 dfs.set_connection('127.0.0.1', 1080);
 if nargout > 0
   dfs_out = dfs;
+else
+  dfs.resize(context_level);
 end
