@@ -8,28 +8,6 @@
 
 RS485=$alicat_port
 uDACS_A=$uDACS16_port
-# id | grep -q '(dialout)' ||
-#   msg -n interact "[ERROR] flight not in group dialout: `id`"
-# for dev in /dev/ttyUSB*; do
-#   if [ -c "$dev" ]; then
-#     verb=`$TMBINDIR/USB_ID.exp $dev verbose | tr [:cntrl:] ' '`
-#     verb=${verb% }
-#     foo=${verb##* }
-#     case "$foo" in
-#       *=*)
-#         port=${foo#*=}
-#         device=${foo%=*}
-#         eval deviceport="\$$device"
-#         if [ -n "$deviceport" ]; then
-#           msg -n interact "$device identified on both $deviceport and $port"
-#         else
-#           eval $foo
-#         fi;;
-#       *) msg -n interact "port $dev unidentified verb='$verb'";;
-#     esac
-#   fi
-# done
-# 
 for device in RS485 uDACS_A; do
   eval deviceport="\$$device"
   if [ -n "$deviceport" ]; then

@@ -2,30 +2,11 @@
 # time for time to synch.
 sleep 10
 
-RS485=
-uDACS_A=
-id | grep -q '(dialout)' ||
-  msgf 2 "flight not in group dialout: `id`"
-for dev in /dev/ttyUSB*; do
-  if [ -c "$dev" ]; then
-    verb=`$TMBINDIR/USB_ID.exp $dev verbose | tr [:cntrl:] ' '`
-    verb=${verb% }
-    foo=${verb##* }
-    case "$foo" in
-      *=*)
-        port=${foo#*=}
-        device=${foo%=*}
-        eval deviceport="\$$device"
-        if [ -n "$deviceport" ]; then
-          msgf 0 "$device identified on both $deviceport and $port"
-        else
-          eval $foo
-        fi;;
-      *) msgf 0 "port $dev unidentified verb='$verb'";;
-    esac
-  fi
-done
+/usr/local/libexec/usb_enum >USB_def.log
+. ./USB_def.log
 
+RS485=$alicat_port
+uDACS_A=$uDACS16_port
 for device in RS485 uDACS_A; do
   eval deviceport="\$$device"
   if [ -n "$deviceport" ]; then
