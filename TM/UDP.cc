@@ -157,8 +157,9 @@ UDPcsv_file::UDPcsv_file(unsigned int n_cols, const char *nan_text)
       n_ovflow(0) {
 }
 
-void UDPcsv_file::init(UDPbcast *UDPb, int obufsize) {
+void UDPcsv_file::init(UDPbcast *UDPb, int obufsize, UDPbcast *UDPb2) {
   UDP = UDPb;
+  UDP2 = UDPb2;
   this->obufsize = obufsize;
   obuf = new char[obufsize];
 }
@@ -177,10 +178,12 @@ void UDPcsv_file::transmit(const char *hdr, double utime) {
   }
   nc += snprintf(&obuf[nc], obufsize-nc, "\r\n");
   if (nc < obufsize) {
-    if (UDPext_debug)
+    if (UDPext_debug) {
       msg(0, "%s", obuf);
-    else
+    } else {
       UDP->Broadcast("%s", obuf);
+      if (UDP2) UDP2->Broadcast("%s", obuf);
+    }
   } else {
     ++n_ovflow;
     if (!ovflow_reported) {

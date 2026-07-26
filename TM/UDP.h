@@ -41,10 +41,10 @@ class UDPbcast {
 class UDPcsv_file : public csv_file {
   public:
     UDPcsv_file(unsigned int n_cols, const char *nan_text = 0);
-    void init(UDPbcast *UDPb, int obufsize);
+    void init(UDPbcast *UDPb, int obufsize, UDPbcast *UDPb2 = 0);
     void transmit(const char *hdr, double utime); // const char *iso8601);
   protected:
-    UDPbcast *UDP;
+    UDPbcast *UDP, *UDP2;
     char *obuf;
     int obufsize;
     bool ovflow_reported;

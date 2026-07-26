@@ -26,13 +26,12 @@ int main(int argc, char **argv) {
 #ifdef LAB_TEST_CAMBRIDGE
     // Direct to moudi Cambridge lab IP
     new CR_UDPtx("10.245.83.73", "9094");
-#elif LAB_TEST_FIELD
-    // Direct to moudi flight IP
-    new CR_UDPtx("10.11.96.150", "9094");
 #else
-    // PGSS uplink system
-    new CR_UDPtx("10.15.101.131", "9094");
+    // Direct to moudi flight IP for SABRE 2026
+    new CR_UDPtx("10.11.96.150", "9094");
 #endif
+    // PGSS uplink system used in 2025(?)
+    // new CR_UDPtx("10.15.101.131", "9094");
   CRxUtx->connect();
   ELoop.add_child(CRxUtx);
   

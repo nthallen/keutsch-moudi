@@ -27,7 +27,7 @@
   }
 
   void UDPinit() {
-    UDPbcast *UDPstatus =
+    UDPbcast *UDP_MTS =
     // This is the IP to target the GSE. NASA will broadcast on
     // the PGSS, but we can't broadcast if we're on the same
     // subnet as the flight computer.
@@ -43,13 +43,18 @@
 //    new UDPbcast("10.11.96.131", "7075",1000); // WB57 LAN
 //    UDPbcast UDP("10.245.83.127", "5100"); // Link LAN
 //    UDPbcast UDP("192.168.237.255", "5100"); // VMware private LAN
-
+    UDPbcast *UDP_PGS =
+#ifdef LAB_TEST_FIELD
+      new UDPbcast("10.11.96.153", "7075", 1000);
+#else
+      new UDPbcast("10.16.101.151", "7075", 1000);
+#endif
 
     // column numbers are offset by 2 to account for:
     //   1-based documentation
     //   'MOUDI' string in first column
     //   ISO8601 time in second column
-    UDPcsv_status.init(UDPstatus, 1000);
+    UDPcsv_status.init(UDP_MTS, 1000, UDP_PGS);
     UDPcsv_status.init_col(3-2,"Status","%.0lf");
     UDPcsv_status.init_col(4-2,"MoudiValveS","%.0lf");
     UDPcsv_status.init_col(5-2,"MoudiFlow","%.1lf");
