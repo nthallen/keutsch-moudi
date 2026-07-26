@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
   UDPrx_TM *UrxTM = new UDPrx_TM(tm, "7075");
   ELoop.add_child(UrxTM);
   
-  msg(0, "Started");
+  msg(MSG, "Started");
   ELoop.event_loop();
   ELoop.delete_children();
   ELoop.clear_delete_queue(true);
@@ -57,6 +57,7 @@ int main(int argc, char **argv) {
  */
 CR_UDPtx::CR_UDPtx(const char *broadcast_ip, const char *broadcast_port)
     : Cmd_reader("UDPtx", 200, "UDPCmdTx") {
+  msg(MSG, "Will relay commands to %s:%s", broadcast_ip, broadcast_port);
   UDPtx = new UDPbcast(broadcast_ip, broadcast_port);
 }
 
@@ -74,7 +75,9 @@ bool CR_UDPtx::app_input() {
   if (nc >= 1 && buf[0] == 'Q' && buf[1] == '\n') {
     return true;
   }
-  msg(0, "Relaying: %s", buf);
+  if (nc >= 1 && buf[nc-1] != '\n')
+    msg(MSG_WARN, "CR_UDPtx: expected trailing newline");
+  msg(MSG, "Relaying: %s", buf);
   UDPtx->Broadcast("%s", buf);
   report_ok(nc);
   return false;
