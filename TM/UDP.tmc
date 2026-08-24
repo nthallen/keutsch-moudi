@@ -47,7 +47,8 @@
 #ifdef LAB_TEST_FIELD
       new UDPbcast("10.11.96.153", "7075", 1000);
 #else
-      new UDPbcast("10.16.101.151", "7075", 1000);
+      // new UDPbcast("10.16.101.151", "7075", 1000); // In Houston
+      new UDPbcast("10.16.105.151", "7075", 1000); // In Panama
 #endif
 
     // column numbers are offset by 2 to account for:
